@@ -17,6 +17,7 @@ router.route("/add").post((req,res)=>{
         //imageURL
     })
 
+
     newVehicle.save().then(()=>{
         res.json("Vehicle Added");
     }).catch((err)=>{
@@ -32,30 +33,27 @@ router.route("/").get((req,res)=>{
     })
 })
 
-router.route("/update/:id").put(async(res,req)=>{
-    let userId = req.params.id;
-    const {modelName,brandName,manufactureYear,price}=req.body;
+router.put('/update/:id',(req,res) =>{
+    vehicle.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set:req.body
+        },
+        (err,post) =>{
+            if(err){
+                return res.status(500).json({error:err});
 
-    const updateVehicle = {
+            }
 
-        modelName,
-        brandName,
-        manufactureYear,
-        price
-        //urlImg
-    }
+            return res.status(200).json({
+                success:"Updated Successful"
+            });
+        }
+    );
 
-    const update = await vehicle.findByIdAndUpdate(userId, updateVehicle).then(()=>{
-        res.status(200).send({status: "Vehicle updated", vehicle: update})
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send({status: "Error with updating data"});
-    })
+});
 
-
-})
-
-router.route(" /delete/:id ").delete(async(req,res)=>{
+router.route('/delete/:id').delete(async(req,res)=>{
     let userId = req.params.id;
 
     await vehicle.findByIdAndDelete(userId)
@@ -64,20 +62,24 @@ router.route(" /delete/:id ").delete(async(req,res)=>{
     }).catch((err)=>{
         console.log(err);
         res.status(500).send({status: "Error with deleting data",error:err.message});
-    })
-})
+   })
+ })
 
-router.route("/get/:id").get(async (req,res)=>{
+ router.get("/get/:id",(req,res) =>{
     let userId = req.params.id;
-    await vehicle.findById(userId)
-        .then(()=>{
-            res.status(200).send({status:"User fetched", user: user})
-        }).catch((err)=>{
-            console.log(err);
-            res.status(500).send({status: "Error with get user",error:err.message});
-        })
-})
+    
+    vehicle.findById(userId,(err,post) =>{
+        if(err){
+            return res.status(500).json({success:false,err});
 
- 
+        }
 
+        return res.status(200).json({
+                success:true,
+                post
+            });
+
+        
+    });
+});
 module.exports = router;
