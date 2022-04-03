@@ -41,6 +41,9 @@ app.use("/item", itemRouter);
 const driverRouter = require("./routes/drivers");
 app.use("/driver", driverRouter);
 
+const bookingRouter = require("./routes/bookings");
+app.use("/booking", bookingRouter);
+
 app.listen(PORT, ()=>{
     console.log(`Server is up and running on port number: ${PORT}`)
 })
