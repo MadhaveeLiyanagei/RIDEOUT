@@ -13,7 +13,7 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/booking" >Booking</Nav.Link>
                 <Nav.Link as={Link} to="/payment" >Payment</Nav.Link>
                 <Nav.Link as={Link} to="/user" >User</Nav.Link>
-                <Nav.Link as={Link} to="/adddriver" >Driver</Nav.Link>
+                <Nav.Link as={Link} to="/driver" >Driver</Nav.Link>
                 <Nav.Link as={Link} to="/about" >About Us</Nav.Link>
             </Nav>
         </Container>
