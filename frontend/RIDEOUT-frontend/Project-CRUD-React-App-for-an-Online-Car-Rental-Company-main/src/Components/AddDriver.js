@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import axios from 'axios'
 import Navbarv from './Navbarv';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -45,7 +45,27 @@ export default class AddDriver extends Component{
         console.log(data)
 
 
+    
+
+        axios.post("http://localhost:8070/driver/add",data).then((res) =>{
+             if(res.data.success){
+                 this.setState(
+                   {
+                    id:"",
+                    name:"",
+                    license:"",
+                    email:"",
+                    nic:"",
+                    mobile:""
+                   }  
+                   
+                 )
+             }
+        })
     }
+
+
+
 
     render() {
         return (
