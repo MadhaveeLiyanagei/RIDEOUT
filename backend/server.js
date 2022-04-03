@@ -38,6 +38,8 @@ app.use("/supplier", supplierRouter);
 const itemRouter = require("./routes/supplierItem");
 app.use("/item", itemRouter);
 
+const driverRouter = require("./routes/drivers");
+app.use("/driver", driverRouter);
 
 app.listen(PORT, ()=>{
     console.log(`Server is up and running on port number: ${PORT}`)
