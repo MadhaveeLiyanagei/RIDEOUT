@@ -9,8 +9,18 @@ import NewCar from './Components/NewCar';
 import Booking from './Components/Booking';
 import Payment from './Components/Payment';
 import User from './Components/User';
+import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
+
+
+
+import Navbarv from './Components/Navbarv';
+import AddDriver from './Components/AddDriver';
+import DriverDetails from './Components/DriverDetails';
+import Driverhome from './Components/DriverHome';
+import EditDriver from './Components/EditDriver';
+
 
 function App() {
   const [CounCar, setCounCar] = useState(4);
@@ -64,8 +74,16 @@ function App() {
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
-              <Route path="/user" component={User}/>       
-              <Route path="/update/:id" component={UpdateCar}/>            
+              <Route path="/user" component={User}/>  
+              <Route path="/driver" component={Driver}/>     
+              <Route path="/update/:id" component={UpdateCar}/>      
+
+                    <Route path="/NavBarv" component={Navbarv}></Route>
+                    <Route path="/mah" component={Driverhome}></Route>
+                    <Route path="/post/:id" component={DriverDetails}></Route>
+                    <Route path="/edit/:id" component={EditDriver}></Route>
+                    <Route path="/Madd" component={AddDriver}></Route>
+
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">
