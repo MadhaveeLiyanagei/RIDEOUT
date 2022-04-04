@@ -13,15 +13,6 @@ import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
 
-
-
-import Navbarv from './Components/Navbarv';
-import AddDriver from './Components/AddDriver';
-import DriverDetails from './Components/DriverDetails';
-import Driverhome from './Components/DriverHome';
-import EditDriver from './Components/EditDriver';
-
-
 function App() {
   const [CounCar, setCounCar] = useState(4);
 
@@ -78,11 +69,6 @@ function App() {
               <Route path="/driver" component={Driver}/>     
               <Route path="/update/:id" component={UpdateCar}/>      
 
-                    <Route path="/NavBarv" component={Navbarv}></Route>
-                    <Route path="/mah" component={Driverhome}></Route>
-                    <Route path="/post/:id" component={DriverDetails}></Route>
-                    <Route path="/edit/:id" component={EditDriver}></Route>
-                    <Route path="/Madd" component={AddDriver}></Route>
 
             </Switch>
             </Container>
