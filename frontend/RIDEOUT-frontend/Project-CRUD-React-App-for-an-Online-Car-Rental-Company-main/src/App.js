@@ -12,7 +12,7 @@ import User from './Components/User';
 import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
-
+import SignUp from './Components/User/SignUp/SignUp';
 function App() {
   const [CounCar, setCounCar] = useState(4);
 
@@ -68,7 +68,7 @@ function App() {
               <Route path="/user" component={User}/>  
               <Route path="/driver" component={Driver}/>     
               <Route path="/update/:id" component={UpdateCar}/>      
-
+              <Route path="/SignUp" component={SignUp} />
 
             </Switch>
             </Container>
