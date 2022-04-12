@@ -8,10 +8,11 @@ import {Container,Row,Col, Image } from 'react-bootstrap'
 import NewCar from './Components/NewCar';
 import Booking from './Components/Booking';
 import Payment from './Components/Payment';
-import User from './Components/User';
 import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
+import SignUp from './Components/User/SignUp/SignUp';
+import SignIn from './Components/User/SignIn/SignIn';
 
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
@@ -55,9 +56,11 @@ function App() {
       urlImg: 'https://global.toyota/pages/news/images/2019/11/05/1100/rendition/20191105_02_32_W610_H407.jpg'
   },
   ])
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("user") != null ? true : false);
+
   return (
 
-      <MainContext.Provider value={{cars, setCars, CounCar, setCounCar}}>
+    <MainContext.Provider value={{ cars, setCars, CounCar, setCounCar, isAuthenticated, setIsAuthenticated }}>
         <Router>
         <div className="App">
           <NavBar />
@@ -70,14 +73,18 @@ function App() {
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
+
               <Route path="/user" component={User}/>  
               <Route path="/driver" component={Driver}/> 
               <Route path="/driverdetail" component={DriverDetail}/> 
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
               <Route path="/viewdriver/:id" component={ViewDriver}/>        
+
+              <Route path="/driver" component={Driver}/>     
+
               <Route path="/update/:id" component={UpdateCar}/>      
-
-
+              <Route path="/SignUp" component={SignUp} />
+              <Route path="/SignIn" component={SignIn} />
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">
