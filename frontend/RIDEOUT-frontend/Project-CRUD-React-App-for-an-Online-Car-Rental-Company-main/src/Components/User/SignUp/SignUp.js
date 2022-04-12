@@ -9,9 +9,9 @@ import {
   ToggleButton,
   Spinner,
 } from "react-bootstrap";
-import { UserSignUpService } from '../../../Services/UserServices'
+import { UserSignUpService } from '../../../services/UserServices'
 import { signUpValidations } from '../../../Validations/UserValidations'
-import { SweetAlert } from '../../../Services/SweetAlert'
+import { SweetAlert } from '../../../services/SweetAlert'
 
 class SignUp extends Component {
   constructor(props) {

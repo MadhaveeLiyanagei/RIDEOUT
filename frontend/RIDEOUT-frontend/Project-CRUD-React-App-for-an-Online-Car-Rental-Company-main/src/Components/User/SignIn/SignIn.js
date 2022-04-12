@@ -8,9 +8,9 @@ import {
     Form,
     Spinner,
 } from "react-bootstrap";
-import { UserSignInService } from '../../../Services/UserServices'
+import { UserSignInService } from '../../../services/UserServices'
 import { signInValidations } from '../../../Validations/UserValidations'
-import { SweetAlert } from '../../../Services/SweetAlert'
+import { SweetAlert } from '../../../services/SweetAlert.js'
 
 class SignIn extends Component {
     constructor(props) {

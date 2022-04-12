@@ -10,10 +10,10 @@ import Booking from './Components/Booking';
 import Payment from './Components/Payment';
 import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
-import UpdateCar from './Components/UpdateCar';
+import UpdateCar from './Components/UpdateCar'; 
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-
+import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
@@ -74,7 +74,7 @@ function App() {
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
 
-              <Route path="/user" component={User}/>  
+              <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
               <Route path="/driverdetail" component={DriverDetail}/> 
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
