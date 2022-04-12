@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 const URL = process.env.MONGODB_URL;
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 3000;
 //const URL = 'mongodb+srv://MADHAVEE:Madhi99@thecentralperk.9weg6.mongodb.net/TheCentralPerk?retryWrites=true&w=majority'
 
 mongoose.connect(URL,{
