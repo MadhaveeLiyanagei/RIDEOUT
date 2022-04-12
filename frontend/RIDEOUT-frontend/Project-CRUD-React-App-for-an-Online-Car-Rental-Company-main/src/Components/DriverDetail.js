@@ -3,7 +3,6 @@ import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import axios from 'axios';
 import DriverService from '../services/DriverService';
 
-
 class DriverDetail extends Component {
     constructor(props) {
         super(props)
@@ -85,13 +84,6 @@ class DriverDetail extends Component {
       
       
         }
-
-
-
-
-
-
-
 
     render() {
         
