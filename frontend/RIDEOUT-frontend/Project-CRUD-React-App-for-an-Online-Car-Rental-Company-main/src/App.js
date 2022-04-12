@@ -13,6 +13,11 @@ import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
 
+import DriverDetail from './Components/DriverDetail';
+import UpdateDriver from './Components/UpdateDriver';
+import ViewDriver from './Components/ViewDriver';
+
+
 function App() {
   const [CounCar, setCounCar] = useState(4);
 
@@ -66,7 +71,10 @@ function App() {
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
               <Route path="/user" component={User}/>  
-              <Route path="/driver" component={Driver}/>     
+              <Route path="/driver" component={Driver}/> 
+              <Route path="/driverdetail" component={DriverDetail}/> 
+              <Route path="/updatedriver/:id" component={UpdateDriver}/>  
+              <Route path="/viewdriver/:id" component={ViewDriver}/>        
               <Route path="/update/:id" component={UpdateCar}/>      
 
 
