@@ -7,13 +7,15 @@ router.route("/add").post((req,res)=>{
     const  vehicleNo = req.body.vehicleNo;
     const  startDate = req.body.startDate;
     const  endDate = req.body.endDate;
+    const  total = req.body.total;
     //const  imageURL = Image(req.body.imageURL);
 
     const newBooking = new booking({
         username,
         vehicleNo,
         startDate,
-        endDate
+        endDate,
+        total
         //imageURL
     })
 
@@ -25,7 +27,7 @@ router.route("/add").post((req,res)=>{
     })
 }) 
 
-router.route("/").get((req,res)=>{
+router.route("/").get((_req,res)=>{
     booking.find().then((booking)=>{
             res.json(booking)
     }).catch((err)=>{
@@ -39,7 +41,7 @@ router.put('/update/:id',(req,res) =>{
         {
             $set:req.body
         },
-        (err,post) =>{
+        (err,_post) =>{
             if(err){
                 return res.status(500).json({error:err});
 
@@ -54,11 +56,11 @@ router.put('/update/:id',(req,res) =>{
 });
 
 router.route('/delete/:id').delete(async(req,res)=>{
-    let userId = req.params.id;
+    let id = req.params.id;
 
-    await booking.findByIdAndDelete(userId)
+    await booking.findByIdAndDelete(id)
     .then(()=>{
-        res.status(200).send({status:"User deleted"})
+        res.status(200).send({status:"booking deleted"})
     }).catch((err)=>{
         console.log(err);
         res.status(500).send({status: "Error with deleting data",error:err.message});
@@ -66,9 +68,9 @@ router.route('/delete/:id').delete(async(req,res)=>{
  })
 
  router.get("/get/:id",(req,res) =>{
-    let userId = req.params.id;
+    let id = req.params.id;
     
-    booking.findById(userId,(err,post) =>{
+    booking.findById(id,(err,post) =>{
         if(err){
             return res.status(500).json({success:false,err});
 

@@ -38,7 +38,7 @@ function Driver() {
 
             const driver = { driver_id , driver_name , email, nic, phone_number, gender };
             
-            axios.post("http://localhost:8070/driver/add",driver).then((res) =>{
+            axios.post("http://localhost:3000/driver/add",driver).then((res) =>{
                 if(res.driver){
                     this.setState(
                         {

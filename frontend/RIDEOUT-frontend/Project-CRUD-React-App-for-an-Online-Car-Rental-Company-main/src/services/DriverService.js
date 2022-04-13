@@ -1,5 +1,5 @@
 import axios from 'axios';
-const DRIVER_API_BASE_URL = "http://localhost:8070/driver";
+const DRIVER_API_BASE_URL = "http://localhost:3000/driver";
 class DriverService {
 
     getDriver(){
@@ -11,7 +11,7 @@ class DriverService {
     }
 
     getDriverById(driver_id){
-        return axios.get(DRIVER_API_BASE_URL + '/' + driver_id);
+        return axios.get(DRIVER_API_BASE_URL + '/get/driver_id' + driver_id);
     }
 
     updateDriver(driver, driver_id){
@@ -19,7 +19,7 @@ class DriverService {
     }
 
     deleteDriver(driver_id){
-        return axios.delete(DRIVER_API_BASE_URL + '/' + driver_id);
+        return axios.delete(DRIVER_API_BASE_URL + '/delete/' + driver_id);
     }
 }
 

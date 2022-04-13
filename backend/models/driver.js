@@ -31,7 +31,7 @@ const driverSchema = new Schema({
 
     gender : {
         type : String,
-        //required: true
+        required: true
     }
 
     

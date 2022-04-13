@@ -6,7 +6,7 @@ class UpdateDriver extends Component {
         super(props)
 
         this.state = {
-            driver_id: this.props.match.params.driver_id,
+            id: this.props.match.params.driver_id,
             driver_id:"",
             driver_name:"",
             email:"",

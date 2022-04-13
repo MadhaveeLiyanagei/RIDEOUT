@@ -44,7 +44,7 @@ class DriverDetail extends Component {
       
       retrievedPosts(){
         
-          axios.get(`http://localhost:8070/driver`).then(res =>{
+          axios.get(`http://localhost:3000/driver`).then(res =>{
             if(res.data){
               this.setState({
                 driver:res.data
@@ -56,7 +56,7 @@ class DriverDetail extends Component {
           })
       } 
         onDelete = (driver_id) =>{
-          axios.delete(`http://localhost:8070/driver/delete/${driver_id}`).then((_res)=>{
+          axios.delete(`http://localhost:3000/driver/delete/${driver_id}`).then((_res)=>{
             alert("Details Deleted Successfully.");
             this.retrievedPosts();
       
@@ -75,7 +75,7 @@ class DriverDetail extends Component {
         handleSearchArea = (e) =>{
           const searchKey= e.currentTarget.value;
       
-          axios.get("http://localhost:8070/Driver/qualities").then(res =>{
+          axios.get("http://localhost:3000/Driver/qualities").then(res =>{
             if(res.data.success){
               this.filterData(res.data.existingQualities,searchKey)
              

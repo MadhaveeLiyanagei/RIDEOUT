@@ -20,6 +20,11 @@ const bookingSchema = new Schema({
     endDate :{
         type : Date,
         required: true
+    },
+
+    total :{
+        type : String,
+        required: true
     }
 
 })

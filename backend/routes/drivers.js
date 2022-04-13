@@ -63,8 +63,8 @@ router.route("/add").post((req,res)=>{
 
 router.route("/").get((req, res) => {
 
-    driver.find().then((drivers)=>{
-        res.json(drivers)
+    driver.find().then((driver)=>{
+        res.json(driver)
     
     }).catch((err)=>{
         console.log(err)
@@ -89,7 +89,7 @@ router.route("/update/:id").put(async (req, res) => {
         gender
     }
 
-    const update = await driver.findByIdAndUpdate(userId, updateDriver).then(() => {
+    const driver = await driver.findByIdAndUpdate(driver_id, updateDriver).then(() => {
 
         res.status(200).send({status: "driver Updated"})
     }).catch((err) => {
@@ -102,9 +102,9 @@ router.route("/update/:id").put(async (req, res) => {
 //delete
 
 router.route("/delete/:id").delete(async (req, res) => {
-    let userId = req.params.id;
+    let driver_id = req.params.driver_id;
 
-    await driver.findByIdAndDelete(userId).then(() => {
+    await driver.findByIdAndDelete(driver_id).then(() => {
         res.status(200).send({status: "driver Deleted"});
     }).catch((err) => {
         console.log(err.message);
@@ -113,18 +113,27 @@ router.route("/delete/:id").delete(async (req, res) => {
 })
 
 //get one  data
-router.route("/get/:id").get(async (req, res) => {
-    let userId = req.params.id;
 
-    const driverData = await driver.findById(userId).then((driver) => {
-        res.status(200).send({status: "driver fetched", driver});
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "Error with get details!", error:err.message});
-    })
+router.get("/get/:id",(req,res) =>{
+    let driver_id = req.params.driver_id;
+    
+    driver.findById(driver_id,(err,post) =>{
+        if(err){
+            return res.status(500).json({success:false,err});
 
-})
+        }
+
+        return res.status(200).json({
+                success:true,
+                post
+            });
+   
+    });
+});
 
 
 
 module.exports = router;
+
+
+

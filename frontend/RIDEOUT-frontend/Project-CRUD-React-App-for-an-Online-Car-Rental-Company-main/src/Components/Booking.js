@@ -3,6 +3,8 @@ import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {Form, Row, Col, Button, Alert,Card} from 'react-bootstrap';
+import axios from 'axios';
+
 
 function Booking() {
     const {bookings, setBooking, CounBooking, setCounBooking}=useContext(MainContext);
@@ -31,11 +33,23 @@ function Booking() {
         setError(false);
 
         if(validation()===true){
-            let counBooking=CounBooking+1;
-            setCounBooking(counBooking);
+         
 
-            const booking = { userName , vehicleNo , startDate, endDate, total, id: counBooking };
-            setBooking([...bookings, booking]);
+            const booking = { userName , vehicleNo , startDate, endDate, total};
+            
+            axios.post("http://localhost:3000/booking/add",booking).then((res) =>{
+                if(res.booking){
+                    this.setState(
+                        {
+                            userName:"",
+                            vehicleNo:"",
+                            startDate:"",
+                            endDate:"",
+                            total:""
+                        }
+                    )
+                }
+            })
 
             setIsPending(true);
             setSuccess(true);
@@ -99,7 +113,7 @@ function Booking() {
                 </Col>
             </Form.Group>
 
-          <Button type="submit" disabled={isPending}>Pay Now</Button>
+          <Button type="submit" disabled={isPending}>Book Now</Button>
           
         </Form>
         {error && <Alert variant={'danger'} className="fw-bold">You Should Fill All Input</Alert>}
