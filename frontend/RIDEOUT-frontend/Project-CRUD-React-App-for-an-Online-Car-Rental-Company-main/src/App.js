@@ -13,7 +13,7 @@ import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-
+import UserProfile from './Components/User/UserProfile/UserProfile';
 function App() {
   const [CounCar, setCounCar] = useState(4);
 
@@ -72,6 +72,7 @@ function App() {
               <Route path="/update/:id" component={UpdateCar}/>      
               <Route path="/SignUp" component={SignUp} />
               <Route path="/SignIn" component={SignIn} />
+              <Route path="/user" component={UserProfile} />
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">
