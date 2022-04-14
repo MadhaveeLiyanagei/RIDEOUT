@@ -6,7 +6,7 @@ class UpdateDriver extends Component {
         super(props)
 
         this.state = {
-            id: this.props.match.params.driver_id,
+            drive_id: this.props.match.params.driver_id,
             driver_id:"",
             driver_name:"",
             email:"",
@@ -26,7 +26,7 @@ class UpdateDriver extends Component {
     componentDidMount(){
         DriverService.getDriverById(this.state.driver_id).then( (res) =>{
             let driver = res.data;
-            this.setState({driver_id: driver.driver_id,
+            this.setState({drive_id: driver._id,
                 driver_name: driver.driver_name,
                 email : driver.email,
                 nic:driver.nic,
