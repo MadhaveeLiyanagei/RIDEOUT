@@ -10,6 +10,8 @@ import {
     Spinner,
     ToggleButton,
 } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { deleteUserAccountService } from '../../../Services/UserServices'
 
 class UserProfile extends Component {
     constructor(props) {
@@ -56,6 +58,37 @@ class UserProfile extends Component {
             [e.target.name]: e.target.value,
         });
     };
+
+    // Delete account function
+    deleteMyAccount = () => {
+        this.setState({
+            loading: true,
+            deleting: true
+        })
+        Swal.fire({
+            title: 'Confirmation',
+            text: "Are you want to delete your account.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteUserAccountService(this.state.id).then(res => {
+                    if (res.status) {
+                        this.context.setIsAuthenticated(true);
+                        this.props.history.push("/SignIn");
+                    }
+                })
+            }
+        })
+
+        this.setState({
+            loading: false,
+            deleting: false
+        })
+    }
 
     render() {
         return (
@@ -142,7 +175,7 @@ class UserProfile extends Component {
                                     />
                                     <span className="ms-2">{this.state.loading && this.state.updating ? "Please Wait..." : "Update Profile"}</span>
                                 </Button>
-                                <Button variant="danger" className="me-1" disabled={this.state.loading}>
+                                <Button variant="danger" className="me-1" disabled={this.state.loading} onClick={() => this.deleteMyAccount()}>
                                     <Spinner
                                         as="span"
                                         animation="border"
