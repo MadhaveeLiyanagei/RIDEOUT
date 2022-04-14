@@ -36,7 +36,7 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/create" >Vehicles</Nav.Link>
           <Nav.Link as={Link} to="/booking" >Booking</Nav.Link>
           <Nav.Link as={Link} to="/payment" >Payment</Nav.Link>
-          <Nav.Link as={Link} to="/driver" >Driver</Nav.Link>
+          <Nav.Link as={Link} to="/driverdetail" >Driver</Nav.Link>
           <Nav.Link as={Link} to="/about" >About Us</Nav.Link>
           {loginOrUser()}
         </Nav>

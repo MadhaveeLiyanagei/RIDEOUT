@@ -63,21 +63,21 @@ class DriverDetail extends Component {
           })
         }  
       
-        filterData(qualities,searchKey){
+        filterData(driver,searchKey){
       
-          const result = qualities.filter((post) =>
-          post.prodType.toLowerCase().includes(searchKey)||
-          post.prodBrandName.toLowerCase().includes(searchKey)
+          const result = driver.filter((driver) =>
+          driver.driver_name.toLowerCase().includes(searchKey)||
+          driver.driver_id.toLowerCase().includes(searchKey)
           )
-          this.setState({Qualities:result})
+          this.setState({driver:result})
         }
       
         handleSearchArea = (e) =>{
           const searchKey= e.currentTarget.value;
       
-          axios.get("http://localhost:3000/Driver/qualities").then(res =>{
-            if(res.data.success){
-              this.filterData(res.data.existingQualities,searchKey)
+          axios.get("http://localhost:3000/driver/").then(res =>{
+            if(res.data.driver){
+              this.filterData(res.data.driver,searchKey)
              
             }
           });
@@ -91,7 +91,8 @@ class DriverDetail extends Component {
             <div>
                  <h2 className="text-center">Driver List</h2>
                  <div className = "row">
-                    <button className="btn btn-primary" onClick={this.addDriver}>  Add Driver</button>
+                 
+                            <input className="form-control" type="search" placeholder="Search Here" name="searchQuery" aria-label="Search" onChange={this.handleSearchArea}></input>
                  </div>
                  <br></br>
                  <div className = "row">
@@ -130,8 +131,9 @@ class DriverDetail extends Component {
                                 )
                                 }
                             </tbody>
+                            
                         </table>
-
+                        <br></br>  <button style={{width: "290px"}} className="btn btn-primary" onClick={this.addDriver}>  Add Driver</button>
                  </div>
 
             </div>

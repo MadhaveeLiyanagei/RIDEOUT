@@ -61,7 +61,7 @@ router.route("/add").post((req,res)=>{
 
 // fetch data
 
-router.route("/").get((req, res) => {
+router.route("/").get((_req, res) => {
 
     driver.find().then((driver)=>{
         res.json(driver)
