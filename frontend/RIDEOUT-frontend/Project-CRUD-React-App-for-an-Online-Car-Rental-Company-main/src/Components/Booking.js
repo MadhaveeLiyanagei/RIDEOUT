@@ -12,7 +12,7 @@ function Booking() {
     const [vehicleNo, setVehicleNo] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [total, setTotal] = useState('');
+  
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -20,7 +20,7 @@ function Booking() {
 
     const validation = () => {
     
-        if (!userName || !vehicleNo || !startDate || !endDate || !total) {
+        if (!userName || !vehicleNo || !startDate || !endDate ) {
           return false;
         } else {
           return true;
@@ -35,17 +35,17 @@ function Booking() {
         if(validation()===true){
          
 
-            const booking = { userName , vehicleNo , startDate, endDate, total};
+            const booking = { userName , vehicleNo , startDate, endDate};
             
             axios.post("http://localhost:3000/booking/add",booking).then((res) =>{
-                if(res.booking){
+                if(res.data){
                     this.setState(
                         {
                             userName:"",
                             vehicleNo:"",
                             startDate:"",
                             endDate:"",
-                            total:""
+                           
                         }
                     )
                 }
@@ -55,7 +55,7 @@ function Booking() {
             setSuccess(true);
 
             setTimeout(() => {
-                history.push("/");
+                history.push("/payment");
             }, 1000);
             
 
@@ -104,14 +104,14 @@ function Booking() {
                     <Form.Control type="date" placeholder="End Date" value={endDate} onChange={(e) => setEndDate(e.target.value)} noValidate/>
                 </Col>
             </Form.Group>
-            <Form.Group as={Row} className="mb-3">
+            {/* <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="2">
                 Total Price
                 </Form.Label>
                 <Col sm="10">
                     <Form.Control type="text" placeholder="Total Price" value={total} onChange={(e) => setTotal(e.target.value)} noValidate/>
                 </Col>
-            </Form.Group>
+            </Form.Group> */}
 
           <Button type="submit" disabled={isPending}>Book Now</Button>
           

@@ -1,44 +1,43 @@
 const router = require("express").Router();
-let driver = require("../models/driver");
+let driver = require("../models/payment");
 
 router.route("/add").post((req,res)=>{
 
-    
-    const  driver_name = req.body.driver_name;
-    const  email = req.body. email;
-    const  nic  = req.body.nic ;
-    const  phone_number = req.body.phone_number;
-    const  gender= req.body.gender;
+   
+    const  userName = req.body.userName;
+    const  vehicleNo = req.body.vehicleNo;
+    const  paidtDate  = req.body.paidtDate ;
+    const  total = req.body.total;
+   
 
 
-    const newDriver = new driver({
+    const newPayment = new payment({
         
-        driver_name,
-        email,
-        nic,
-        phone_number,
-        gender
+        userName,
+        vehicleNo,
+        paidtDate,
+        total
 
     })
 
 
-    newDriver.save().then(()=>{
-        res.json("driver Added");
+    newPayment.save().then(()=>{
+        res.json("Payment Added");
     }).catch((err)=>{
         console.log(err);
     })
 }) 
 
 router.route("/").get((req,res)=>{
-    driver.find().then((driver)=>{
-            res.json(driver)
+    payment.find().then((payment)=>{
+            res.json(payment)
     }).catch((err)=>{
             console.log(err)
     })
 })
 
 router.put('/update/:id',(req,res) =>{
-    driver.findByIdAndUpdate(
+    payment.findByIdAndUpdate(
         req.params.id,
         {
             $set:req.body
@@ -60,9 +59,9 @@ router.put('/update/:id',(req,res) =>{
 router.route('/delete/:id').delete(async(req,res)=>{
     let userId = req.params.id;
 
-    await driver.findByIdAndDelete(userId)
+    await payment.findByIdAndDelete(userId)
     .then(()=>{
-        res.status(200).send({status:"Driver deleted"})
+        res.status(200).send({status:"payment deleted"})
     }).catch((err)=>{
         console.log(err);
         res.status(500).send({status: "Error with deleting data",error:err.message});
@@ -72,7 +71,7 @@ router.route('/delete/:id').delete(async(req,res)=>{
  router.get("/get/:id",(req,res) =>{
     let userId = req.params.id;
     
-    driver.findById(userId,(err,post) =>{
+    payment.findById(userId,(err,post) =>{
         if(err){
             return res.status(500).json({success:false,err});
 

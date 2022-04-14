@@ -1,12 +1,13 @@
 import {Col, Card, ListGroup, ListGroupItem, Alert, Button, Row} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { Component } from "react";
-import { getAllVehicles,deleteVehicleByID } from "../services/carService";
+import { getAllVehicles } from "../services/carService";
+import BookingService from "../services/BookingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
-class CarList extends Component{
+class CarListUser extends Component{
 
     constructor(props) {
         super(props)
@@ -32,21 +33,7 @@ class CarList extends Component{
         }
       };
 
-      deleteVehicle = async (id) => {
-        try {
-          const vehi = await deleteVehicleByID(id);
-    
-          console.log(vehi.data);
-
-          this.getAllVehicles();    
-          this.setState({
-            vehicle: this.state.vehicle.filter((veh) => veh.id !== id),
-          });
-          toast('Deleted!')
-        } catch (e) {
-          console.log(e);
-        }
-      };
+   
 
 
     
@@ -68,15 +55,15 @@ render() {
                 <ListGroupItem><span className="fw-bold">Brand Name:</span> {car.brandName}</ListGroupItem>
                 <ListGroupItem><span className="fw-bold">Price:</span> {car.price}</ListGroupItem>
                 <ListGroupItem>
-                    <Row>
-                         {/* <Row>
-                           <Col> <Button className="w-100" width="50px" as={Link} to={`/booking/add/`}>Book-Now</Button></Col>
-                           </Row> */}
-                           <Row><Col></Col></Row>
+                
+                         <Row>
+                           <Col> <Button className="w-100" as={Link} to={`/booking/add/`}>Book-Now</Button></Col>
+                           </Row>
+                           {/*
                           <Col><Button as={Link} to={`/update/${car._id}`} variant="primary" className="w-100">Update</Button></Col> 
                          
                         <Col><Button variant="danger" className="w-100" onClick={()=> this.deleteVehicle(car._id) }>Delete</Button></Col>
-                    </Row>
+                    </Row> */}
                     
                     
                 </ListGroupItem>
@@ -92,4 +79,4 @@ render() {
 
 };
 
- export default CarList;
+ export default CarListUser;

@@ -17,6 +17,8 @@ import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
+import CarListUser from './Components/CarListUser';
+
 
 
 function App() {
@@ -72,7 +74,9 @@ function App() {
               <Route exact path="/" component={Home}/>            
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
-              <Route path="/payment" component={Payment}/>        
+              <Route path="/payment" component={Payment}/>   
+
+              <Route path="/CarListUser" component={CarListUser}/> 
 
               <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
@@ -80,7 +84,7 @@ function App() {
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
               <Route path="/viewdriver/:id" component={ViewDriver}/>        
 
-              <Route path="/driver" component={Driver}/>     
+              <Route path="/booking" component={Booking}/> 
 
               <Route path="/update/:id" component={UpdateCar}/>      
               <Route path="/SignUp" component={SignUp} />
