@@ -11,11 +11,9 @@ class CarList extends Component{
     constructor(props) {
         super(props)
 
-       
     this.state = { vehicle: [] };
 
     }
-
 
     componentDidMount() {
         this.getAllVehicles();
@@ -58,7 +56,7 @@ render() {
             <Col lg={3} key={car._id} className="mb-3">
             <Card className="h-100">
             <Card.Img variant="top" />
-            {/* <Card.Img variant="top" src={this.props.vehi.urlImg} /> */}
+           <Card.Img variant="top" src={car.image} /> 
             <Card.Body>
                 <Card.Title>{car.modelName} {car.manufactureYear}</Card.Title>
                 

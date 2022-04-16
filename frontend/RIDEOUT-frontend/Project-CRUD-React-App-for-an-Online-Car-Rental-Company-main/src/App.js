@@ -17,6 +17,9 @@ import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
+import AddSupplier from './Components/AddSupplier';
+import SupplierList from './Components/SupplierList'
+import UpdateSupplier from './Components/UpdateSupplier';
 
 
 function App() {
@@ -73,18 +76,19 @@ function App() {
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
-
               <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
               <Route path="/driverdetail" component={DriverDetail}/> 
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
               <Route path="/viewdriver/:id" component={ViewDriver}/>        
-
               <Route path="/driver" component={Driver}/>     
-
               <Route path="/update/:id" component={UpdateCar}/>      
               <Route path="/SignUp" component={SignUp} />
               <Route path="/SignIn" component={SignIn} />
+              <Route path="/supplier" component={AddSupplier} />
+              <Route path="/supplierList" component={SupplierList} />
+              <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
+              d
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">

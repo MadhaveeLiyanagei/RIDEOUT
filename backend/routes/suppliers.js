@@ -1,53 +1,24 @@
 const router = require("express").Router();
-const { response } = require("express");
-let Supplier = require("../models/Supplier");
-
-//http://Localhost:8070/supplier/add
-// router.route("/add").post((req, res) =>{
-    
-//     const supplier_id = req.body.supplier_id;
-//     const supplier_name = req.body.supplier_name;
-//     const email =  req.body.email;
-//     const nic = req.body.nic;
-//     const phone_number = req.body.phone_number; 
-//     const gender = req.body.gender;
-
-//     const newSupplier = new Supplier ({
-//         supplier_id,
-//         supplier_name,
-//         email,
-//         nic,
-//         phone_number,
-//         gender
-//     })
-
-//     newSupplier.save().then(()=> {
-//         res.json("Supplier Added")
-//     }).catch((err) => {
-//         console.log(err);
-//     })
-
-// })
-
+let supplier = require("../models/Supplier");
 
 router.route("/add").post((req,res)=>{
 
-    const supplier_id = req.body.supplier_id;
-    const supplier_name = req.body.supplier_name;
-    const email =  req.body.email;
-    const nic = req.body.nic;
-    const phone_number = req.body.phone_number; 
-    const gender = req.body.gender;
+    
+    const  supplier_name = req.body.supplier_name;
+    const  email = req.body. email;
+    const  nic  = req.body.nic ;
+    const  phone_number = req.body.phone_number;
+    const  gender= req.body.gender;
 
-    const newSupplier  = new Supplier({
 
-        supplier_id,
+    const newSupplier = new supplier({
+        
         supplier_name,
         email,
         nic,
         phone_number,
         gender
-      
+
     })
 
 
@@ -58,73 +29,61 @@ router.route("/add").post((req,res)=>{
     })
 }) 
 
-
-// fetch data
-
-router.route("/").get((req, res) => {
-
-    Supplier.find().then((suppliers)=>{
-        res.json(suppliers)
-    
+router.route("/").get((req,res)=>{
+    supplier.find().then((supplier)=>{
+            res.json(supplier)
     }).catch((err)=>{
-        console.log(err)
+            console.log(err)
     })
-
 })
 
-//update
+router.put('/update/:id',(req,res) =>{
+    supplier.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set:req.body
+        },
+        (err,post) =>{
+            if(err){
+                return res.status(500).json({error:err});
 
-router.route("/update/:id").put(async (req, res) => {
+            }
 
+            return res.status(200).json({
+                success:"Updated Successful"
+            });
+        }
+    );
+
+});
+
+router.route('/delete/:id').delete(async(req,res)=>{
     let userId = req.params.id;
-    //d structure
-    const {supplier_id, supplier_name, email, nic, phone_number, gender} = req.body;
 
-    const updateSupplier = {
-        supplier_id,
-        supplier_name,
-        email,
-        nic,
-        phone_number, 
-        gender
-    }
-
-    const update = await Supplier.findByIdAndUpdate(userId, updateSupplier).then(() => {
-
-        res.status(200).send({status: "Supplier Updated"})
-    }).catch((err) => {
+    await supplier.findByIdAndDelete(userId)
+    .then(()=>{
+        res.status(200).send({status:"User deleted"})
+    }).catch((err)=>{
         console.log(err);
-        res.status(500).send({status: "Error with updating data", error: err.message });
-    }) 
+        res.status(500).send({status: "Error with deleting data",error:err.message});
+   })
+ })
 
-})
-
-//delete
-
-router.route("/delete/:id").delete(async (req, res) => {
+ router.get("/get/:id",(req,res) =>{
     let userId = req.params.id;
+    
+    supplier.findById(userId,(err,post) =>{
+        if(err){
+            return res.status(500).json({success:false,err});
 
-    await Supplier.findByIdAndDelete(userId).then(() => {
-        res.status(200).send({status: "Supplier Deleted"});
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "Error with delete  supplier data!", error:err.message})
-    })
-})
+        }
 
-//get one  data
-router.route("/get/:id").get(async (req, res) => {
-    let userId = req.params.id;
+        return res.status(200).json({
+                success:true,
+                post
+            });
 
-    const supplierdata = await Supplier.findById(userId).then((supplier) => {
-        res.status(200).send({status: "supplier fetched", supplier});
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "Error with get details!", error:err.message});
-    })
-
-})
-
-
-
+        
+    });
+});
 module.exports = router;

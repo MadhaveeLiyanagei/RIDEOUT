@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const vehicleSchema = new Schema({
 
+    
     modelName :{
         type : String,
         required: true
@@ -20,7 +21,11 @@ const vehicleSchema = new Schema({
     price :{
         type : Number,
         required: true
-    }
+    },
+    image: {
+        type: String,
+        required: true,
+      },
 
 })
 

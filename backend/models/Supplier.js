@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 const supplierSchema = new Schema({
 
-    supplier_id : {
-        type : String,
-        required: true
-    },
-
     supplier_name : {
         type : String,
         required: true
