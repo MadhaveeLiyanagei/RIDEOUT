@@ -10,16 +10,12 @@ import Payment from './Components/Payment';
 import User from './Components/User';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
-import Navbarv from './Components/Navbarv';
 import AddSupplier from './Components/AddSupplier';
 import SupplierList from './Components/SupplierList';
 import UpdateSupplier from './Components/UpdateSupplier';
 import Driver from './Components/Driver';
-import banner from './imgs/banner.png';
-import UpdateCar from './Components/UpdateCar'; 
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
@@ -91,11 +87,11 @@ function App() {
               <Route path="/update/:id" component={UpdateCar}/>
                   
 
-                    <Route path="/NavBarv" component={Navbarv}></Route>
+                    <Route path="/NavBarv" component={NavBar}></Route>
                     <Route path="/supplier" component={AddSupplier} />
                     <Route path="/supplierList" component={SupplierList} />
                     <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
-=======
+
               <Route path="/payment" component={Payment}/>   
 
               <Route path="/CarListUser" component={CarListUser}/> 

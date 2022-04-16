@@ -51,65 +51,65 @@ class AddSupplier extends Component{
 
       onSubmit = async (v) => {
 
-        console.log(this.state.supplier_name)
+        // console.log(this.state.supplier_name)
 
-        if(this.state.supplier_name== ''){
-          console.log('here');
+        // if(this.state.supplier_name== ''){
+        //   console.log('here');
   
-          Swal.fire({  
-            icon: 'error',  
-            title: 'Oops...',  
-            text: 'Supplier Name is Required !',  
+        //   Swal.fire({  
+        //     icon: 'error',  
+        //     title: 'Oops...',  
+        //     text: 'Supplier Name is Required !',  
            
-          });  
+        //   });  
           
-        }
-        if(this.state.email== ''){
-          console.log('here');
+        // }
+        // if(this.state.email== ''){
+        //   console.log('here');
   
-          Swal.fire({  
-            icon: 'error',  
-            title: 'Oops...',  
-            text: 'E-mail is Required !',  
+        //   Swal.fire({  
+        //     icon: 'error',  
+        //     title: 'Oops...',  
+        //     text: 'E-mail is Required !',  
            
-          });  
+        //   });  
           
-        }
-        if(this.state.nic == ''){
-          console.log('here');
+        // }
+        // if(this.state.nic == ''){
+        //   console.log('here');
   
-          Swal.fire({  
-            icon: 'error',  
-            title: 'Oops...',  
-            text: 'NIC is Required !',  
+        //   Swal.fire({  
+        //     icon: 'error',  
+        //     title: 'Oops...',  
+        //     text: 'NIC is Required !',  
            
-          });  
+        //   });  
           
-        }
+        // }
 
-        if(this.state.phone_number== ''){
-          console.log('here');
+        // if(this.state.phone_number== ''){
+        //   console.log('here');
   
-          Swal.fire({  
-            icon: 'error',  
-            title: 'Oops...',  
-            text: 'Phone Number is Required !',  
+        //   Swal.fire({  
+        //     icon: 'error',  
+        //     title: 'Oops...',  
+        //     text: 'Phone Number is Required !',  
            
-          });  
+        //   });  
           
-        }
+        // }
 
-        if(this.state.gender== ''){
-          console.log('here');
+        // if(this.state.gender== ''){
+        //   console.log('here');
   
-          Swal.fire({  
-            icon: 'error',  
-            title: 'Oops...',  
-            text: 'Gender is Required !',  
+        //   Swal.fire({  
+        //     icon: 'error',  
+        //     title: 'Oops...',  
+        //     text: 'Gender is Required !',  
            
-          });  
+        //   });  
           
-        }
+        // }
         v.preventDefault();
         const supplier= {
             

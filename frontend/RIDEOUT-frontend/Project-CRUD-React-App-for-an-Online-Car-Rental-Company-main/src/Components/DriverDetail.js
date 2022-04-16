@@ -53,16 +53,6 @@ class DriverDetail extends Component {
          
          
 
-         handleSearch = (event) => {
-          let driver_name = event.target.value.toLowerCase();
-          let result = [];
-          console.log(driver_name);
-          result = getAllDrivers.filter((data) => {
-          return data.driver.search(driver_name) != -1;
-          });
-          setFilteredData(result);
-          }
-
     render() {
    
         return (
@@ -70,8 +60,7 @@ class DriverDetail extends Component {
                  <h2 className="text-center">Driver List</h2>
                  
                  <div className = "row">
-                 <input className="form-control"  type="text" onChange={(event) =>handleSearch(event)}>
-                </input>
+                
                 
                 <br></br>
                     <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/driver/add')}}>  Add Driver</button>
