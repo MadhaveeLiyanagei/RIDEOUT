@@ -9,6 +9,8 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
+import Swal from "sweetalert2";
+
 
 class UpdateDriver extends Component{
 
@@ -83,26 +85,114 @@ class UpdateDriver extends Component{
         }
    }
 
-   onSubmit = async(v)=>{
-    v.preventDefault();
-    const driver = {
+//    onSubmit = async(v)=>{
+//     v.preventDefault();
+//     const driver = {
+        
+//         driver_name: this.state.driver_name,
+//         email: this.state.email,
+//         nic: this.state.nic,
+//         phone_number: this.state.phone_number,
+//         gender: this.state.gender
+//     };
+//     try {
+//         const sup = await updateDriver(this.state.driver_id,driver);
+//         console.log(sup.status);
+//         toast('Successfully Updated!')
+//         this.props.history.push("/driverdetail");
+//       } catch (e) {
+//         console.log(e);
+//       }
+
+//    }
+
+
+
+
+
+   onSubmit = async (v) => {
+
+    console.log(this.state.driver_name)
+
+    if(this.state.driver_name == ''){
+      console.log('here');
+
+      Swal.fire({  
+        icon: 'error',  
+        title: 'Oops...',  
+        text: 'Driver Name is Required !',  
+       
+      });  
+      
+    }
+    else if(this.state.email == ''){
+      console.log('here');
+
+      Swal.fire({  
+        icon: 'error',  
+        title: 'Oops...',  
+        text: 'E-mail is Required !',  
+       
+      });  
+      
+    }
+    else if(this.state.nic == ''){
+      console.log('here');
+
+      Swal.fire({  
+        icon: 'error',  
+        title: 'Oops...',  
+        text: 'NIC is Required !',  
+       
+      });  
+      
+    }
+
+    else if(this.state.phone_number == ''){
+        console.log('here');
+
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Phone Number is Required !',  
+         
+        });  
+        
+      }
+      else if(this.state.gender == ''){
+        console.log('here');
+
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Gender is Required !',  
+         
+        });  
+        
+      }
+  
+
+      v.preventDefault();
+
+      const driver = {
         
         driver_name: this.state.driver_name,
         email: this.state.email,
         nic: this.state.nic,
         phone_number: this.state.phone_number,
-        gender: this.state.gender
+        gender: this.state.gender,
     };
     try {
-        const sup = await updateDriver(this.state.driver_id,driver);
-        console.log(sup.status);
-        toast('Successfully Updated!')
-        this.props.history.push("/driverdetail");
-      } catch (e) {
-        console.log(e);
-      }
+      const drive = await updateDriver(this.state.driver_id,driver);
+      console.log(drive.status);
+      toast('Successfully Updated!')
+      this.props.history.push("/driverdetail");
+    } catch (e) {
+      console.log(e);
+    }
 
-   }
+ }
+
 
     //     validation = async() => {
     
@@ -134,7 +224,7 @@ class UpdateDriver extends Component{
                     E-mail
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeDriverEmail} noValidate/>
+                        <Form.Control type="email" placeholder="E-mail" value={this.state.email} onChange={this.onChangeDriverEmail} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -157,12 +247,15 @@ class UpdateDriver extends Component{
 
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                   Gender
+                    Gender
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeDriverGender} noValidate/>
-                    </Col>
+                    <Form.Label column sm="2">    <input type="radio" value="Male" name="gender" onChange={this.onChangeDriverGender} noValidate/> Male
+                    </Form.Label>  <Form.Label column sm="2">  <input type="radio" value="Female" name="gender" onChange={this.onChangeDriverGender} noValidate/> Female
+                    </Form.Label>  <Form.Label column sm="2"> <input type="radio" value="Other" name="gender" onChange={this.onChangeDriverGender} noValidate/> Other
+                    </Form.Label></Col>
                 </Form.Group>
+              
 
     
               <Button type="submit" >Update Driver</Button>
