@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import {Form, Row, Col, Button, Alert, ButtonGroup} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
+import axios from 'axios';
+
 //import axios from 'axios';
+
 import {toast} from 'react-toastify';
 
 import { getAllSuppliers, deleteSupplierByID } from './../services/supplierService';

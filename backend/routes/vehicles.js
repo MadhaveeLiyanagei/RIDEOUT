@@ -1,22 +1,21 @@
 const router = require("express").Router();
 let vehicle = require("../models/vehicle");
-
 router.route("/add").post((req,res)=>{
 
     const  modelName = req.body.modelName;
     const  brandName = req.body.brandName;
     const  manufactureYear = req.body.manufactureYear;
     const  price = Number(req.body.price);
-    //const  imageURL = Image(req.body.imageURL);
-
+    const  image = req.body.image;
+    
     const newVehicle = new vehicle({
+    
         modelName,
         brandName,
         manufactureYear,
-        price
-        //imageURL
+        price,  
+        image,    
     })
-
 
     newVehicle.save().then(()=>{
         res.json("Vehicle Added");
@@ -42,7 +41,6 @@ router.put('/update/:id',(req,res) =>{
         (err,post) =>{
             if(err){
                 return res.status(500).json({error:err});
-
             }
 
             return res.status(200).json({

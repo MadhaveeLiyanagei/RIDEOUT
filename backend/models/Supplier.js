@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 
 const supplierSchema = new Schema({
 
+
   
+
 
     supplier_name : {
         type : String,
