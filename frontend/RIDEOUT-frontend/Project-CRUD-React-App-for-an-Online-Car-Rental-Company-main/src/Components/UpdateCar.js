@@ -7,6 +7,9 @@ import  { Component } from "react";
 import { getCarById,updateVehicle } from "../services/carService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ImageUploader from "react-image-upload";
+import "react-image-upload/dist/index.css";
+import Swal from "sweetalert2"; 
 toast.configure();
 
 
@@ -16,12 +19,14 @@ class UpdateCar extends Component{
         super(props)
 
         this.state = {
-            car_id: this.props.match.params.driver_id,
-           
+            car_id: this.props.match.params.car_id,
             modelName:"",
             brandName:"",
             manufactureYear:"",
             price:"",
+            image:"",
+            error: false, 
+            errorMessage: {}
         }
        
     }
@@ -63,7 +68,8 @@ class UpdateCar extends Component{
                      modelName: car.modelName,
                      brandName : car.brandName,
                      manufactureYear:car.manufactureYear,
-                     price:car.price
+                     price:car.price,
+                     image:car.image
                  });
             })
        
@@ -74,12 +80,71 @@ class UpdateCar extends Component{
    }
 
    onSubmit = async(v)=>{
+
+    // console.log(this.state.modelName)
+
+    // if(this.state.modelName == ''){
+    //     Swal.fire({  
+    //       icon: 'error',  
+    //       title: 'Oops...',  
+    //       text: 'Model Name is Required !',  
+         
+    //     });  
+       
+    //   }
+    //   if(this.state.brandName == ''){
+
+
+    //     Swal.fire({  
+    //       icon: 'error',  
+    //       title: 'Oops...',  
+    //       text: 'Brand Name is Required !',  
+         
+    //     });  
+        
+    //   }
+    //   if(this.state.manufactureYear == ''){
+
+
+    //     Swal.fire({  
+    //       icon: 'error',  
+    //       title: 'Oops...',  
+    //       text: 'Manufacture Year is Required !',  
+         
+    //     });  
+        
+    //   }
+
+    //   console.log(this.state.price)
+    //   if(this.state.price == ''){
+    //     console.log('here');
+
+    //     Swal.fire({  
+    //       icon: 'error',  
+    //       title: 'Oops...',  
+    //       text: 'Price is Required !',  
+         
+    //     });  
+        
+    //   }
+    //   if(this.state.price < 0){
+    //     console.log('here');
+
+    //     Swal.fire({  
+    //       icon: 'error',  
+    //       title: 'Oops...',  
+    //       text: 'Please Enter Valid Amount !',  
+         
+    //     });  
+        
+    //   }
     v.preventDefault();
     const vehicle = {
         modelName: this.state.modelName,
         brandName: this.state.brandName,
         manufactureYear: this.state.manufactureYear,
         price: this.state.price,
+        image: this.state.image,
     };
     try {
         const vehi = await updateVehicle(this.state.car_id,vehicle);
@@ -92,16 +157,16 @@ class UpdateCar extends Component{
 
    }
 
-    //     validation = async() => {
-    
-    //     if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //   };
+   getImageFileObject(imageFile) {
+    console.log(imageFile.dataUrl);
 
-    // }
+    this.state.image = imageFile.dataUrl;
+  }
+
+  runAfterImageDelete(file) {
+    console.log({ file });
+  }
+
 
     render() {
         return(
@@ -113,7 +178,7 @@ class UpdateCar extends Component{
                     Model Name
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Model Name" value={this.state.modelName} onChange={this.onChanageVehicleModelName} noValidate/>
+                        <Form.Control type="text" placeholder="Model Name" value={this.state.modelName} onChange={this.onChanageVehicleModelName} required/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -140,14 +205,66 @@ class UpdateCar extends Component{
                         <Form.Control type="text" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} noValidate/>
                     </Col>
                 </Form.Group>
-                {/* <Form.Group as={Row} className="mb-3">
+                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Url Img
+                    Image
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Url Img" value={urlImg} onChange={(e) => setUrlImg(e.target.value)} noValidate/>
+                    <ImageUploader
+                onFileAdded={(img) => this.getImageFileObject(img)}
+                onFileRemoved={(img) => this.runAfterImageDelete(img)}
+                style={{
+                  height: 200,
+                  width: 200,
+                  background: "rgb(0 182 255)",
+                }}
+                deleteIcon={
+                  <img
+                    src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png"
+                    alt=""
+                  />
+                }
+                uploadIcon={
+                  <img
+                    src={this.state.image}
+                    alt=""
+                    style={{ height: 150, width: 150 }}
+                  />
+                }
+
+                // uploadIcon={
+                //   <svg
+                //     className="svg-circleplus"
+                //     viewBox="0 0 100 100"
+                //     style={{ height: "40px", stroke: "#000" }}
+                //     value={this.state.image}
+                //   >
+                //     <circle
+                //       cx="50"
+                //       cy="50"
+                //       r="45"
+                //       fill="none"
+                //       strokeWidth="7.5"
+                //     ></circle>
+                //     <line
+                //       x1="32.5"
+                //       y1="50"
+                //       x2="67.5"
+                //       y2="50"
+                //       strokeWidth="5"
+                //     ></line>
+                //     <line
+                //       x1="50"
+                //       y1="32.5"
+                //       x2="50"
+                //       y2="67.5"
+                //       strokeWidth="5"
+                //     ></line>
+                //   </svg>
+                // }
+              />
                     </Col>
-                </Form.Group> */}
+                </Form.Group> 
     
               <Button type="submit">Update Car</Button>
             </Form>
@@ -159,55 +276,6 @@ class UpdateCar extends Component{
 
 }
 
-// function UpdateCar() {
-//     const { id } = useParams();
-//     const {cars, setCars}=useContext(MainContext);
-//     let CurrentCar = cars.filter((car) => car.id == id);
-//         CurrentCar=CurrentCar[0];
-//     const [modelName, setModelName] = useState(CurrentCar.modelName);
-//     const [brandName, setBrandName] = useState(CurrentCar.brandName);
-//     const [price, setPrice] = useState(CurrentCar.price);
-//     const [manufactureYear, setManufactureYear] = useState(CurrentCar.manufactureYear);
-//     const [urlImg, setUrlImg] = useState(CurrentCar.urlImg);
-//     const [isPending, setIsPending] = useState(false);
-//     const [error, setError] = useState(false);
-//     const [success, setSuccess] = useState(false);
-//     const history=useHistory();
 
-//     const validation = () => {
-    
-//         if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
-//           return false;
-//         } else {
-//           return true;
-//         }
-//       };
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-        
-//         setError(false);
-
-//         if(validation()===true){
-//             let filterCar = cars.filter((car) => car.id != id);
-//             const car = { modelName , brandName ,price,manufactureYear, urlImg, id: id };
-//             setCars([...filterCar, car]);
-
-//             setIsPending(true);
-//             setSuccess(true);
-
-//             setTimeout(() => {
-//                 history.push("/");
-//             }, 1000);
-            
-
-//         }else{
-//             setError(true);
-//         }
-//     }
-//     return (
-
-//     )
-// }
 
 export default UpdateCar
