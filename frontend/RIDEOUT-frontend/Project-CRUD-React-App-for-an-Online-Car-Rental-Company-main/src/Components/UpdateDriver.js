@@ -247,12 +247,15 @@ class UpdateDriver extends Component{
 
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                   Gender
+                    Gender
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeDriverGender} noValidate/>
-                    </Col>
+                    <Form.Label column sm="2">    <input type="radio" value="Male" name="gender" onChange={this.onChangeDriverGender} noValidate/> Male
+                    </Form.Label>  <Form.Label column sm="2">  <input type="radio" value="Female" name="gender" onChange={this.onChangeDriverGender} noValidate/> Female
+                    </Form.Label>  <Form.Label column sm="2"> <input type="radio" value="Other" name="gender" onChange={this.onChangeDriverGender} noValidate/> Other
+                    </Form.Label></Col>
                 </Form.Group>
+              
 
     
               <Button type="submit" >Update Driver</Button>

@@ -171,8 +171,10 @@ class Driver extends Component{
                     Gender
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChanageDriverGender} noValidate/>
-                    </Col>
+                    <Form.Label column sm="2">    <input type="radio" value="Male" name="gender" onChange={this.onChanageDriverGender} noValidate/> Male
+                    </Form.Label>  <Form.Label column sm="2">  <input type="radio" value="Female" name="gender" onChange={this.onChanageDriverGender} noValidate/> Female
+                    </Form.Label>  <Form.Label column sm="2"> <input type="radio" value="Other" name="gender" onChange={this.onChanageDriverGender} noValidate/> Other
+                    </Form.Label></Col>
                 </Form.Group>
                 {/* <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
