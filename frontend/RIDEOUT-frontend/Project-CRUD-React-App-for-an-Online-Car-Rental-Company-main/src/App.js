@@ -14,6 +14,18 @@ import Navbarv from './Components/Navbarv';
 import AddSupplier from './Components/AddSupplier';
 import SupplierList from './Components/SupplierList';
 import UpdateSupplier from './Components/UpdateSupplier';
+import Driver from './Components/Driver';
+import banner from './imgs/banner.png';
+import UpdateCar from './Components/UpdateCar'; 
+import SignUp from './Components/User/SignUp/SignUp';
+import SignIn from './Components/User/SignIn/SignIn';
+import User from './Components/User'
+import DriverDetail from './Components/DriverDetail';
+import UpdateDriver from './Components/UpdateDriver';
+import ViewDriver from './Components/ViewDriver';
+import CarListUser from './Components/CarListUser';
+
+
 
 
 function App() {
@@ -54,11 +66,13 @@ function App() {
   },
   ])
 
+
+
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("user") != null ? true : false);
 
   return (
 
-      <MainContext.Provider value={{cars, setCars, CounCar, setCounCar}}>
+    <MainContext.Provider value={{ cars, setCars, CounCar, setCounCar, isAuthenticated, setIsAuthenticated }}>
         <Router>
         <div className="App">
           <NavBar />
@@ -70,6 +84,7 @@ function App() {
               <Route exact path="/" component={Home}/>            
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
+
               <Route path="/payment" component={Payment}/>        
               <Route path="/user" component={User}/>  
                 
@@ -80,7 +95,23 @@ function App() {
                     <Route path="/supplier" component={AddSupplier} />
                     <Route path="/supplierList" component={SupplierList} />
                     <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
+=======
+              <Route path="/payment" component={Payment}/>   
 
+              <Route path="/CarListUser" component={CarListUser}/> 
+
+
+              <Route path="/user" component={User}/> 
+              <Route path="/driver" component={Driver}/> 
+              <Route path="/driverdetail" component={DriverDetail}/> 
+              <Route path="/updatedriver/:id" component={UpdateDriver}/>  
+              <Route path="/viewdriver/:id" component={ViewDriver}/>        
+
+              <Route path="/booking" component={Booking}/> 
+
+              <Route path="/update/:id" component={UpdateCar}/>      
+              <Route path="/SignUp" component={SignUp} />
+              <Route path="/SignIn" component={SignIn} />
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">

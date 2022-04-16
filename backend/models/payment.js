@@ -1,30 +1,33 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
-const bookingSchema = new Schema({
 
-    username :{
+const paymentSchema = new Schema({
+
+  
+
+    userName : {
         type : String,
         required: true
     },
 
-    vehicleNo :{
+    vehicleNo : {
         type : String,
         required: true
     },
 
-    startDate :{
-        type : Date,
+    paidtDate : {
+        type : String,
         required: true
     },
 
-    endDate :{
-        type : Date,
+    total : {
+        type : String,
         //required: true
     }
 
-    
 
 })
 
-const booking = mongoose.model("booking",bookingSchema);
-module.exports = booking;
+const payment = mongoose.model("payment", paymentSchema);
+module.exports = payment;

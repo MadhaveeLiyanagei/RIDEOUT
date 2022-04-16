@@ -1,105 +1,129 @@
-import React,{useContext} from 'react'
+import React,{Component, useContext} from 'react'
 import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import {addVehicle} from '../services/carService';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 
-function NewCar() {
-    const {cars, setCars, CounCar, setCounCar}=useContext(MainContext);
-    const [modelName, setModelName] = useState('');
-    const [brandName, setBrandName] = useState('');
-    const [price, setPrice] = useState('');
-    const [manufactureYear, setManufactureYear] = useState('');
-    const [urlImg, setUrlImg] = useState('');
-    const [isPending, setIsPending] = useState(false);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const history=useHistory();
+class NewCar extends Component{
+   
 
-    const validation = () => {
-    
-        if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
-          return false;
-        } else {
-          return true;
-        }
+    state = {
+        modelName: "",
+        brandName: "",
+        manufactureYear: "",
+        price: "",
       };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        setError(false);
+    onChanageVehicleModelName = (modelName) => {
+        this.setState({
+            modelName: modelName.target.value,
+        });
+      };
+      onChanageVehicleBrandName = (brandName) => {
+        this.setState({
+            brandName: brandName.target.value,
+        });
+      };
+      onChanageVehicleManufactureYear = (manufactureYear) => {
+        this.setState({
+            manufactureYear: manufactureYear.target.value,
+        });
+      };
+      onChanageVehiclePrice = (price) => {
+        this.setState({
+            price: price.target.value,
+        });
+      };
 
-        if(validation()===true){
-            let counCar=CounCar+1;
-            setCounCar(counCar);
-
-            const car = { modelName , brandName ,price,manufactureYear, urlImg, id: counCar };
-            setCars([...cars, car]);
-
-            setIsPending(true);
-            setSuccess(true);
-
-            setTimeout(() => {
-                history.push("/");
-            }, 1000);
-            
-
-        }else{
-            setError(true);
+      onSubmit = async (v) => {
+        v.preventDefault();
+        const vehicle = {
+            modelName: this.state.modelName,
+            brandName: this.state.brandName,
+            manufactureYear: this.state.manufactureYear,
+            price: this.state.price,
+        };
+        try {
+          const vehi = await addVehicle(vehicle);
+          console.log(vehi.status);
+          toast('Car Added!')
+          this.props.history.push("/");
+        } catch (e) {
+          console.log(e);
         }
-    }
-    return (
-        <Row className="create">
-        <h2>Add New Car</h2>
-        <Form onSubmit={handleSubmit} noValidate>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Model Name
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Model Name" value={modelName} onChange={(e) => setModelName(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Brand Name
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Brand Name" value={brandName} onChange={(e) => setBrandName(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Manu Facture Year
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Manu Facture Year" value={manufactureYear} onChange={(e) => setManufactureYear(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Price
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Url Img
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Url Img" value={urlImg} onChange={(e) => setUrlImg(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
+      };
+  
 
-          <Button type="submit" disabled={isPending}>Add Car</Button>
-        </Form>
-        {error && <Alert variant={'danger'} className="fw-bold">You Should Fill All Input</Alert>}
-        {success && <Alert variant={'success'} className="fw-bold">Success! Create New Car</Alert>}
-      </Row>
-    )
+    render(){
+        return(
+            <Row className="create">
+            <h2>Add New Car</h2>
+            <Form onSubmit={this.onSubmit} noValidate>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Model Name
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Model Name" value={this.state.modelName} onChange={this.onChanageVehicleModelName} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Brand Name
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Brand Name" value={this.state.brandName} onChange={this.onChanageVehicleBrandName} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Manufacture Year
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Manufacture Year" value={this.state.manufactureYear} onChange={this.onChanageVehicleManufactureYear} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Price
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} noValidate/>
+                    </Col>
+                </Form.Group>
+                {/* <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Url Img
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Url Img" value={urlImg} onChange={(e) => setUrlImg(e.target.value)} noValidate/>
+                    </Col>
+                </Form.Group> */}
+    
+              <Button type="submit" >Add Car</Button>
+            </Form>
+          </Row>
+        )
+    }
+
 }
+
+// function NewCar() {
+
+
+//     const validation = () => {
+    
+//         if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
+//           return false;
+//         } else {
+//           return true;
+//         }
+//       };
+
+// }
 
 export default NewCar

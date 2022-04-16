@@ -3,6 +3,8 @@ import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import axios from 'axios';
+
 
 function Payment() {
     const {payments, setPayment, CounPayment, setCounPayment}=useContext(MainContext);
@@ -15,10 +17,10 @@ function Payment() {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const history=useHistory();
-
+ 
     const validation = () => {
     
-        if (!paymentId || !userName || !vehicleNo || !paidtDate || !total) {
+        if ( !userName || !vehicleNo || !paidtDate || !total) {
           return false;
         } else {
           return true;
@@ -31,11 +33,22 @@ function Payment() {
         setError(false);
 
         if(validation()===true){
-            let counPayment=CounPayment+1;
-            setCounPayment(counPayment);
+           
 
-            const payment = { paymentId , userName , vehicleNo, paidtDate, total, id: counPayment };
-            setPayment([...payments, payment]);
+            const payment = { userName , vehicleNo, paidtDate, total};
+            axios.post("http://localhost:3000/payment/add",payment).then((res) =>{
+                if(res.payment){
+                    this.setState(
+                        {
+                          
+                            userName:"",
+                            vehicleNo:"",
+                            paidtDate:"",
+                            total:""
+                        }
+                    )
+                }
+            })
 
             setIsPending(true);
             setSuccess(true);
@@ -53,14 +66,7 @@ function Payment() {
         <Row className="payment">
         <h2>Add New Payment</h2>
         <Form onSubmit={handleSubmit} noValidate>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                payemnt ID
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="payemnt ID" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
+           
             <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="2">
                 User Name
@@ -79,7 +85,7 @@ function Payment() {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="2">
-                Paid Date
+                Date
                 </Form.Label>
                 <Col sm="10">
                     <Form.Control type="text" placeholder="Paid Date" value={paidtDate} onChange={(e) => setPaidtDate(e.target.value)} noValidate/>
@@ -87,10 +93,10 @@ function Payment() {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="2">
-                Total Paid
+                Total Amout To Pay
                 </Form.Label>
                 <Col sm="10">
-                    <Form.Control type="text" placeholder="Total Paid" value={total} onChange={(e) => setTotal(e.target.value)} noValidate/>
+                    <Form.Control type="text" placeholder="Total Amount To Pay" value={total} onChange={(e) => setTotal(e.target.value)} noValidate/>
                 </Col>
             </Form.Group>
 
