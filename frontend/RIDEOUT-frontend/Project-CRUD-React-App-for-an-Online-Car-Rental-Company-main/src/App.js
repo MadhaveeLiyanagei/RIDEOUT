@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -9,17 +8,12 @@ import NewCar from './Components/NewCar';
 import Booking from './Components/Booking';
 import Payment from './Components/Payment';
 import User from './Components/User';
-import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
-
-
-
 import Navbarv from './Components/Navbarv';
-import AddDriver from './Components/AddDriver';
-import DriverDetails from './Components/DriverDetails';
-import Driverhome from './Components/DriverHome';
-import EditDriver from './Components/EditDriver';
+import AddSupplier from './Components/AddSupplier';
+import SupplierList from './Components/SupplierList';
+import UpdateSupplier from './Components/UpdateSupplier';
 
 
 function App() {
@@ -59,6 +53,9 @@ function App() {
       urlImg: 'https://global.toyota/pages/news/images/2019/11/05/1100/rendition/20191105_02_32_W610_H407.jpg'
   },
   ])
+
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("user") != null ? true : false);
+
   return (
 
       <MainContext.Provider value={{cars, setCars, CounCar, setCounCar}}>
@@ -75,14 +72,14 @@ function App() {
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>        
               <Route path="/user" component={User}/>  
-              <Route path="/driver" component={Driver}/>     
-              <Route path="/update/:id" component={UpdateCar}/>      
+                
+              <Route path="/update/:id" component={UpdateCar}/>
+                  
 
                     <Route path="/NavBarv" component={Navbarv}></Route>
-                    <Route path="/mah" component={Driverhome}></Route>
-                    <Route path="/post/:id" component={DriverDetails}></Route>
-                    <Route path="/edit/:id" component={EditDriver}></Route>
-                    <Route path="/Madd" component={AddDriver}></Route>
+                    <Route path="/supplier" component={AddSupplier} />
+                    <Route path="/supplierList" component={SupplierList} />
+                    <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
 
             </Switch>
             </Container>
