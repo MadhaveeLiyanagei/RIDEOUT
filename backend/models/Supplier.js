@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const supplierSchema = new Schema({
 
+
+  
+
+
     supplier_name : {
         type : String,
         required: true
@@ -26,7 +30,7 @@ const supplierSchema = new Schema({
 
     gender : {
         type : String,
-        //required: true
+        required: true
     }
 
     

@@ -1,131 +1,179 @@
-import React, { Component } from 'react'
-import DriverService from '../services/DriverService';
+import React,{useContext} from 'react'
+import { MainContext } from '../Contexts/MainContext'
+import { useState } from "react";
+import { useHistory,useParams } from "react-router-dom";
+import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import  { Component } from "react";
+import { getDriverById,updateDriver } from "../services/DriverService";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 
-class UpdateDriver extends Component {
+
+class UpdateDriver extends Component{
+
     constructor(props) {
         super(props)
 
         this.state = {
             driver_id: this.props.match.params.driver_id,
-            driver_id:"",
-            driver_name:"",
-            email:"",
-            nic:"",
-            phone_number:"",
-            gender:""
+            driver_name: "",
+            email: "",
+            nic: "",
+            phone_number: "",
+            gender: ""
         }
-        this.changeIdHandler = this.changeIdHandler.bind(this);
-        this.changeNameHandler = this.changeNameHandler.bind(this);
-        this.changeEmailHandler = this.changeEmailHandler.bind(this);
-        this.changeNICHandler = this.changeNICHandler.bind(this);
-        this.changePhoneHandler = this.changePhoneHandler.bind(this);
-        this.changeGenderHandler = this.changeGenderHandler.bind(this);
-        this.updateDriver = this.updateDriver.bind(this);
+       
     }
 
-    componentDidMount(){
-        DriverService.getDriverById(this.state.driver_id).then( (res) =>{
-            let driver = res.data;
-            this.setState({driver_id: driver.driver_id,
-                driver_name: driver.driver_name,
-                email : driver.email,
-                nic:driver.nic,
-                phone_number:driver.phone_number,
-                gender:driver.gender
-            });
+    componentDidMount() {
+        this.getDriver();
+      }
+
+
+  
+    onChangeDriverName = (driver_name) => {
+        this.setState({
+            driver_name: driver_name.target.value,
         });
-    }
-
-    updateDriver = (e) => {
-        e.preventDefault();
-        const driver_id = {driver_id: this.state.driver_id, driver_name: this.state.driver_name, email: this.state.email,nic: this.state.nic,phone_number: this.state.phone_number,gender: this.state.gender};
-        console.log('driver => ' + JSON.stringify(driver_id));
-        console.log('driver_id => ' + JSON.stringify(this.state.driver_id));
-        DriverService.updateDriver(driver_id, this.state.driver_id).then( res => {
-            this.props.history.push(`/UpdateDriver/${driver_id}`);
+      };
+      onChangeDriverEmail = (email) => {
+        this.setState({
+            email: email.target.value,
         });
-    }
- 
-    changeIdHandler= (event) => {
-        this.setState({driver_id: event.target.value});
-    }
+      };
+      onChangeDriverNIC = (nic) => {
+        this.setState({
+            nic: nic.target.value,
+        });
+      };
+      onChangeDriverPhoneNumber = (phone_number) => {
+        this.setState({
+            phone_number: phone_number.target.value,
+        });
+      };
 
-    changeNameHandler= (event) => {
-        this.setState({driver_name: event.target.value});
-    }
+      onChangeDriverGender = (gender) => {
+        this.setState({
+            gender: gender.target.value,
+        });
+      };
 
-    changeEmailHandler= (event) => {
-        this.setState({email: event.target.value});
-    }
 
-    changeNICHandler= (event) => {
-        this.setState({nic: event.target.value});
-    }
+      getDriver = async () =>{
 
-    changePhoneHandler= (event) => {
-        this.setState({phone_number: event.target.value});
-    }
+        console.log(this.props.match.params.id)
 
-    changeGenderHandler= (event) => {
-        this.setState({gender: event.target.value});
-    }
+        try{
+             getDriverById(this.props.match.params.id).then((res)=>{
+            
+                let driver = res.data.post;
+                 this.setState({driver_id: driver._id,
+                    driver_name: driver.driver_name,
+                    email : driver.email,
+                    nic:driver.nic,
+                    phone_number:driver.phone_number,
+                    gender:driver.gender
+                 });
+            })
+       
+  
+        }catch(e){
+            console.log(e);
+        }
+   }
 
-    cancel(){
-        this.props.history.push('/driverdetail');
-    }
+   onSubmit = async(v)=>{
+    v.preventDefault();
+    const driver = {
+        
+        driver_name: this.state.driver_name,
+        email: this.state.email,
+        nic: this.state.nic,
+        phone_number: this.state.phone_number,
+        gender: this.state.gender
+    };
+    try {
+        const sup = await updateDriver(this.state.driver_id,driver);
+        console.log(sup.status);
+        toast('Successfully Updated!')
+        this.props.history.push("/driverdetail");
+      } catch (e) {
+        console.log(e);
+      }
+
+   }
+
+    //     validation = async() => {
+    
+    //     if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
+    //       return false;
+    //     } else {
+    //       return true;
+    //     }
+    //   };
+
+    // }
 
     render() {
-        return (
-            <div>
-                <br></br>
-                   <div className = "container">
-                        <div className = "row">
-                            <div className = "card col-md-6 offset-md-3 offset-md-3">
-                                <h3 className="text-center">Update Driver</h3>
-                                <div className = "card-body">
-                                    <form>
-                                        <div className = "form-group">
-                                            <label> Driver ID : </label>
-                                            <input placeholder="Driver ID" name="driver_id" className="form-control" 
-                                                value={this.state.driver_id} onChange={this.changeIdHandler}/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> Driver Name: </label>
-                                            <input placeholder="Driver Name" name="driver_name" className="form-control" 
-                                                value={this.state.driver_name} onChange={this.changeNameHandler}/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> Email: </label>
-                                            <input placeholder="Email Address" name="email" className="form-control" 
-                                                value={this.state.email} onChange={this.changeEmailHandler}/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> NIC: </label>
-                                            <input placeholder="NIC" name="nic" className="form-control" 
-                                                value={this.state.nic} onChange={this.changeNICHandler}/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> Mobile: </label>
-                                            <input placeholder="Mobile" name="phone_number" className="form-control" 
-                                                value={this.state.phone_number} onChange={this.changePhoneHandler}/>
-                                        </div>
-                                        <div className = "form-group">
-                                            <label> Gender: </label>
-                                            <input placeholder="Gender" name="gender" className="form-control" 
-                                                value={this.state.gender} onChange={this.changeGenderHandler}/>
-                                        </div>
+        return(
+            <Row className="update">
+            <h2>Update Driver</h2>
+            <Form onSubmit={this.onSubmit} noValidate>
+               
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Driver Name
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder=" Driver Name" value={this.state.driver_name} onChange={this.onChangeDriverName} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    E-mail
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeDriverEmail} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    NIC
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeDriverNIC} noValidate/>
+                    </Col>
+                </Form.Group>
 
-                                        <button className="btn btn-success" onClick={this.updateDriver}>Save</button>
-                                        <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Phone Number
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeDriverPhoneNumber} noValidate/>
+                    </Col>
+                </Form.Group>
 
-                   </div>
-            </div>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                   Gender
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeDriverGender} noValidate/>
+                    </Col>
+                </Form.Group>
+
+    
+              <Button type="submit" >Update Driver</Button>
+            </Form>
+          </Row>
         )
     }
+
+
 }
+
+
 
 export default UpdateDriver

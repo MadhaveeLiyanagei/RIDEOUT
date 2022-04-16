@@ -1,40 +1,47 @@
 import React, { Component } from 'react'
-import DriverService from '../services/DriverService'
-import axios from 'axios';
+import {getDriverById} from '../services/DriverService'
+
 
 class ViewDriver extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            driver: this.props.match.params.driver_id,
-            driver_id: {}
+            driver_id: this.props.match.params.driver_id,
+            driver_name: "",
+            email: "",
+            nic: "",
+            phone_number: "",
+            gender: ""
         }
     }
 
     componentDidMount(){
-        DriverService.getDriverById(this.state.driver_id).then( res => {
-            this.setState({driver: res.driver});
-        })
-
-        
-        const driver_id = this.props.match.params.driver_id;
-
-        axios.get(`http://localhost:8070/driver/get/${driver_id}`).then((res)=>{
-            if(res.data.driver){
-                this.setState({
-                    driver_id:res.data.driver.driver_id,
-                    driver_name:res.data.driver.driver_name,
-                    email:res.data.driver.email,
-                    nic:res.data.driver.nic,
-                    phone_number:res.data.driver.phone_number,
-                    gender:res.data.driver.gender
-                });
-
-                console.log(this.state.driver);
-            }
-        });
+        this.getDriver();
     }
+
+    getDriver = async () =>{
+
+        console.log(this.props.match.params.id)
+
+        try{
+             getDriverById(this.props.match.params.id).then((res)=>{
+            
+                let driver = res.data.post;
+                 this.setState({driver_id: driver._id,
+                    driver_name: driver.driver_name,
+                    email : driver.email,
+                    nic:driver.nic,
+                    phone_number:driver.phone_number,
+                    gender:driver.gender
+                 });
+            })
+       
+  
+        }catch(e){
+            console.log(e);
+        }
+   }
 
 
     render() {
@@ -44,13 +51,10 @@ class ViewDriver extends Component {
                 <div className = "card col-md-6 offset-md-3">
                     <h3 className = "text-center"> View Driver info</h3>
                     <div className = "card-body">
-                        <div className = "row">
-                            <label> Driver ID: </label>
-                            <div value= { this.state.driver_id }></div>
-                        </div>
+                        
                         <div className = "row">
                             <label> Driver Name: </label>
-                            <div value= { this.state.driver_name }></div>
+                            <label><div type="text" placeholder="Name" value= { this.state.driver_name }></div></label>
                         </div>
                         <div className = "row">
                             <label> Email:</label>

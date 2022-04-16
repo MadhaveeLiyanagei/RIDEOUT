@@ -6,6 +6,9 @@ import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import {addSupplier} from '../services/supplierService';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import Swal from "sweetalert2"; 
+
 toast.configure();
 
 class AddSupplier extends Component{
@@ -49,6 +52,68 @@ class AddSupplier extends Component{
       };
 
       onSubmit = async (v) => {
+
+
+        console.log(this.state.supplier_name)
+
+        if(this.state.supplier_name== ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'Supplier Name is Required !',  
+           
+          });  
+          
+        }
+        if(this.state.email== ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'E-mail is Required !',  
+           
+          });  
+          
+        }
+        if(this.state.nic == ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'NIC is Required !',  
+           
+          });  
+          
+        }
+
+        if(this.state.phone_number== ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'Phone Number is Required !',  
+           
+          });  
+          
+        }
+
+        if(this.state.gender== ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'Gender is Required !',  
+           
+          });  
+          
+        }
+
         v.preventDefault();
         const supplier= {
             
@@ -80,7 +145,11 @@ class AddSupplier extends Component{
                     Supplier Name
                     </Form.Label>
                     <Col sm="10">
+
                         <Form.Control type="text" placeholder=" Supplier Name" value={this.state.supplier_name} onChange={this.onChangeSupplierName} noValidate/>
+
+                        <Form.Control type="text" placeholder=" Supplier Name" value={this.state.supplier_name} onChange={this.onChangeSupplierName} required noValidate/>
+
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -88,7 +157,11 @@ class AddSupplier extends Component{
                     E-mail
                     </Form.Label>
                     <Col sm="10">
+
                         <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeSupplierEmail} noValidate/>
+
+                        <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeSupplierEmail} required noValidate/>
+
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -96,7 +169,11 @@ class AddSupplier extends Component{
                     NIC
                     </Form.Label>
                     <Col sm="10">
+
                         <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeSupplierNIC} noValidate/>
+
+                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeSupplierNIC} required noValidate/>
+
                     </Col>
                 </Form.Group>
 
@@ -105,7 +182,11 @@ class AddSupplier extends Component{
                     Phone Number
                     </Form.Label>
                     <Col sm="10">
+
                         <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeSupplierPhoneNumber} noValidate/>
+
+                        <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeSupplierPhoneNumber} required noValidate/>
+
                     </Col>
                 </Form.Group>
 
@@ -114,7 +195,11 @@ class AddSupplier extends Component{
                    Gender
                     </Form.Label>
                     <Col sm="10">
+
                         <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeSupplierGender} noValidate/>
+
+                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeSupplierGender} required noValidate/>
+
                     </Col>
                 </Form.Group>
                 {/* <Form.Group as={Row} className="mb-3">

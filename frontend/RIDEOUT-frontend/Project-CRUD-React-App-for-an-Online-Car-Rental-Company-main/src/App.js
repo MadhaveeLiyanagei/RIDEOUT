@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -8,18 +7,31 @@ import {Container,Row,Col, Image } from 'react-bootstrap'
 import NewCar from './Components/NewCar';
 import Booking from './Components/Booking';
 import Payment from './Components/Payment';
-import Driver from './Components/Driver';
+import User from './Components/User';
 import banner from './imgs/banner.png';
-import UpdateCar from './Components/UpdateCar'; 
+import UpdateCar from './Components/UpdateCar';
+//import Navbarv from './Components/Navbarv';
+import AddSupplier from './Components/AddSupplier';
+import SupplierList from './Components/SupplierList';
+import UpdateSupplier from './Components/UpdateSupplier';
+import Driver from './Components/Driver';
+//import banner from './imgs/banner.png';
+//import UpdateCar from './Components/UpdateCar'; 
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-import User from './Components/User'
+//import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
-import AddSupplier from './Components/AddSupplier';
-import SupplierList from './Components/SupplierList'
-import UpdateSupplier from './Components/UpdateSupplier';
+
+//import AddSupplier from './Components/AddSupplier';
+//import SupplierList from './Components/SupplierList'
+//import UpdateSupplier from './Components/UpdateSupplier';
+
+import CarListUser from './Components/CarListUser';
+
+
+
 
 
 function App() {
@@ -59,6 +71,9 @@ function App() {
       urlImg: 'https://global.toyota/pages/news/images/2019/11/05/1100/rendition/20191105_02_32_W610_H407.jpg'
   },
   ])
+
+
+
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("user") != null ? true : false);
 
   return (
@@ -75,13 +90,37 @@ function App() {
               <Route exact path="/" component={Home}/>            
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
+
               <Route path="/payment" component={Payment}/>        
+
+              <Route path="/user" component={User}/>  
+                
+              <Route path="/update/:id" component={UpdateCar}/>
+                  
+
+                    <Route path="/NavBar" component={NavBar}></Route>
+                    <Route path="/supplier" component={AddSupplier} />
+                    <Route path="/supplierList" component={SupplierList} />
+                    <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
+
+              <Route path="/payment" component={Payment}/>   
+
+              <Route path="/CarListUser" component={CarListUser}/> 
+
+
+
               <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
               <Route path="/driverdetail" component={DriverDetail}/> 
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
               <Route path="/viewdriver/:id" component={ViewDriver}/>        
+
               <Route path="/driver" component={Driver}/>     
+
+
+              <Route path="/booking" component={Booking}/> 
+
+
               <Route path="/update/:id" component={UpdateCar}/>      
               <Route path="/SignUp" component={SignUp} />
               <Route path="/SignIn" component={SignIn} />

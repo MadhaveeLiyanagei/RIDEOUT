@@ -21,7 +21,7 @@ function Driver() {
 
     const validation = () => {
     
-        if (!driver_id || !driver_name || !email || !nic || !phone_number || !gender) {
+        if (!driver_name || !email || !nic || !phone_number || !gender) {
           return false;
         } else {
           return true;
@@ -36,13 +36,13 @@ function Driver() {
         if(validation()===true){
 
 
-            const driver = { driver_id , driver_name , email, nic, phone_number, gender };
+            const driver = { driver_name , email, nic, phone_number, gender };
             
-            axios.post("http://localhost:8070/driver/add",driver).then((res) =>{
+            axios.post("http://localhost:3000/driver/add",driver).then((res) =>{
                 if(res.driver){
                     this.setState(
                         {
-                           driver_id:"",
+                          
                            driver_name:"",
                            email:"",
                            nic:"",
@@ -69,14 +69,7 @@ function Driver() {
         <Row className="driver">
         <h2>Add New Driver</h2>
         <Form onSubmit={handleSubmit} noValidate>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Driver ID
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Driver ID" value={driver_id} onChange={(e) => setDriverId(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
+            
             <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="2">
                 Driver Name
