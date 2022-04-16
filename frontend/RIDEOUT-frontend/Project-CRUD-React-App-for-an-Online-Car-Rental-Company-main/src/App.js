@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -8,6 +7,13 @@ import {Container,Row,Col, Image } from 'react-bootstrap'
 import NewCar from './Components/NewCar';
 import Booking from './Components/Booking';
 import Payment from './Components/Payment';
+import User from './Components/User';
+import banner from './imgs/banner.png';
+import UpdateCar from './Components/UpdateCar';
+import Navbarv from './Components/Navbarv';
+import AddSupplier from './Components/AddSupplier';
+import SupplierList from './Components/SupplierList';
+import UpdateSupplier from './Components/UpdateSupplier';
 import Driver from './Components/Driver';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar'; 
@@ -18,6 +24,7 @@ import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
 import CarListUser from './Components/CarListUser';
+
 
 
 
@@ -58,6 +65,9 @@ function App() {
       urlImg: 'https://global.toyota/pages/news/images/2019/11/05/1100/rendition/20191105_02_32_W610_H407.jpg'
   },
   ])
+
+
+
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("user") != null ? true : false);
 
   return (
@@ -74,9 +84,22 @@ function App() {
               <Route exact path="/" component={Home}/>            
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
+
+              <Route path="/payment" component={Payment}/>        
+              <Route path="/user" component={User}/>  
+                
+              <Route path="/update/:id" component={UpdateCar}/>
+                  
+
+                    <Route path="/NavBarv" component={Navbarv}></Route>
+                    <Route path="/supplier" component={AddSupplier} />
+                    <Route path="/supplierList" component={SupplierList} />
+                    <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
+=======
               <Route path="/payment" component={Payment}/>   
 
               <Route path="/CarListUser" component={CarListUser}/> 
+
 
               <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
