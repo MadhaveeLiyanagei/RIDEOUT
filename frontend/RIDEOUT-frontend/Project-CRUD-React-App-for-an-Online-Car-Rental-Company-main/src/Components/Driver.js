@@ -1,123 +1,208 @@
-import React,{useContext} from 'react'
+import React,{Component, useContext} from 'react'
 import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
-import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
+import {addDriver} from '../services/DriverService';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
+import Swal from "sweetalert2";
 
-function Driver() {
-    const {drivers, setDriver}=useContext(MainContext);
-    const [driver_id, setDriverId] = useState('');
-    const [driver_name, setDriverName] = useState('');
-    const [email, setEmail] = useState('');
-    const [nic, setNIC] = useState('');
-    const [phone_number, setPhone] = useState('');
-    const [gender, setGender] = useState('');
-    const [isPending, setIsPending] = useState(false);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const history=useHistory();
+class Driver extends Component{
+   
 
+    state = {
+        driver_name: "",
+        email: "",
+        nic: "",
+        phone_number: "",
+        gender: "",
+      };
 
-    const validation = () => {
+    onChanagDriverName = (driver_name) => {
+        this.setState({
+            driver_name: driver_name.target.value,
+        });
+      };
+      onChanageDriverEmail = (email) => {
+        this.setState({
+            email: email.target.value,
+        });
+      };
+      onChanageDriverNIC = (nic) => {
+        this.setState({
+            nic: nic.target.value,
+        });
+      };
+
+      onChanageDriverPhone = (phone_number) => {
+        this.setState({
+            phone_number: phone_number.target.value,
+        });
+      };
+      onChanageDriverGender = (gender) => {
+        this.setState({
+            gender: gender.target.value,
+        });
+      };
+
+      onSubmit = async (v) => {
+
+        console.log(this.state.driver_name)
+
+        if(this.state.driver_name == ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'Driver Name is Required !',  
+           
+          });  
+          
+        }
+        else if(this.state.email == ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'E-mail is Required !',  
+           
+          });  
+          
+        }
+        else if(this.state.nic == ''){
+          console.log('here');
+  
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'NIC is Required !',  
+           
+          });  
+          
+        }
+
+        else if(this.state.phone_number == ''){
+            console.log('here');
     
-        if (!driver_name || !email || !nic || !phone_number || !gender) {
-          return false;
-        } else {
-          return true;
+            Swal.fire({  
+              icon: 'error',  
+              title: 'Oops...',  
+              text: 'Phone Number is Required !',  
+             
+            });  
+            
+          }
+          else if(this.state.gender == ''){
+            console.log('here');
+    
+            Swal.fire({  
+              icon: 'error',  
+              title: 'Oops...',  
+              text: 'Gender is Required !',  
+             
+            });  
+            
+          }
+      
+
+          v.preventDefault();
+
+          const driver = {
+            
+            driver_name: this.state.driver_name,
+            email: this.state.email,
+            nic: this.state.nic,
+            phone_number: this.state.phone_number,
+            gender: this.state.gender,
+        };
+        try {
+          const drive = await addDriver(driver);
+          console.log(drive.status);
+          toast('Driver Added!')
+          this.props.history.push("/");
+        } catch (e) {
+          console.log(e);
         }
       };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        setError(false);
-
-        if(validation()===true){
-
-
-            const driver = { driver_name , email, nic, phone_number, gender };
-            
-            axios.post("http://localhost:3000/driver/add",driver).then((res) =>{
-                if(res.driver){
-                    this.setState(
-                        {
-                          
-                           driver_name:"",
-                           email:"",
-                           nic:"",
-                           phone_number:"",
-                           gender:""
-                        }
-                    )
-                }
-            })
-
-            setIsPending(true);
-            setSuccess(true);
-
-            setTimeout(() => {
-                history.push("/");
-            }, 1000);
-            
-
-        }else{
-            setError(true);
-        }
+    render(){
+        return(
+            <Row className="create">
+            <h2>Add New Driver</h2>
+            <Form onSubmit={this.onSubmit} noValidate>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Driver Name
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Driver Name" value={this.state.driver_name} onChange={this.onChanagDriverName} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Email 
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="email" placeholder="E-mail" value={this.state.email} onChange={this.onChanageDriverEmail} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                   NIC
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChanageDriverNIC} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Mobile
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Mobile" value={this.state.phone_number} onChange={this.onChanageDriverPhone} noValidate/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Gender
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChanageDriverGender} noValidate/>
+                    </Col>
+                </Form.Group>
+                {/* <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Url Img
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Url Img" value={urlImg} onChange={(e) => setUrlImg(e.target.value)} noValidate/>
+                    </Col>
+                </Form.Group> */}
+    
+              <Button type="submit" >Add Driver</Button>
+            </Form>
+          </Row>
+        )
     }
-    return (
-        <Row className="driver">
-        <h2>Add New Driver</h2>
-        <Form onSubmit={handleSubmit} noValidate>
-            
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Driver Name
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder=" Name" value={driver_name} onChange={(e) => setDriverName(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                E-mail
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                NIC
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="NIC" value={nic} onChange={(e) => setNIC(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Phone Number
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Phone Number" value={phone_number} onChange={(e) => setPhone(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
 
-            <Form.Group as={Row} className="mb-3">
-                <Form.Label column sm="2">
-                Gender
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control type="text" placeholder="Gender" value={gender} onChange={(e) => setGender(e.target.value)} noValidate/>
-                </Col>
-            </Form.Group>
-
-          <Button type="submit" disabled={isPending}>Add Driver</Button>
-        </Form>
-        {error && <Alert variant={'danger'} className="fw-bold">You Should Fill All Input</Alert>}
-        {success && <Alert variant={'success'} className="fw-bold">Success! Create New Driver</Alert>}
-      </Row>
-    )
 }
+
+// function NewCar() {
+
+
+//     const validation = () => {
+    
+//         if (!modelName || !brandName || !price || !manufactureYear || !urlImg) {
+//           return false;
+//         } else {
+//           return true;
+//         }
+//       };
+
+// }
 
 export default Driver
