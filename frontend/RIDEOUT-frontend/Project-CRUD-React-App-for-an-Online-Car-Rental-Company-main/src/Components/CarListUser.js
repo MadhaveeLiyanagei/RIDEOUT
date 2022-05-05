@@ -6,6 +6,7 @@ import BookingService from "../services/BookingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
+import Pdf from "react-to-pdf";
 
 class CarListUser extends Component{
 
