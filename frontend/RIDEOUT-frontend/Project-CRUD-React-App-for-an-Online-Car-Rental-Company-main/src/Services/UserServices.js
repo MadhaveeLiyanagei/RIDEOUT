@@ -49,3 +49,18 @@ export const deleteUserAccountService = async (id) => {
         };
     }
 };
+
+export const getAllUserAccountsService = async () => {
+    try {
+        const res = await axios.get(`${API_ENDPOINT_PREFIX}user/`);
+        return {
+            status: true,
+            users: res.data
+        };
+    } catch (err) {
+        handleError(err);
+        return {
+            status: false,
+        };
+    }
+};
