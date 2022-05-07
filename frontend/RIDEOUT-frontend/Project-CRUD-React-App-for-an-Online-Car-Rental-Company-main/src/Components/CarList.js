@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import { getAllVehicles,deleteVehicleByID } from "../services/carService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2"; 
+
 toast.configure()
 
 class CarList extends Component{
@@ -31,30 +33,54 @@ class CarList extends Component{
       };
 
       deleteVehicle = async (id) => {
-        try {
-          const vehi = await deleteVehicleByID(id);
+        Swal.fire(
+          {  
+          title: 'Are you sure?',  
+          text: 'Vehicle will be deleted',  
+          icon: 'warning',  
+          showCancelButton: true,  
+          confirmButtonColor: '#3085d6',  
+          cancelButtonColor: '#d33',  
+          confirmButtonText: 'Yes!'  
+        }).then((result)=>{
+          console.log(result)
+          if(result.isConfirmed == true){
+            try {
+              const vehi =  deleteVehicleByID(id);
     
-          console.log(vehi.data);
+      
+    
+              this.getAllVehicles();    
+              this.setState({
+                vehicle: this.state.vehicle.filter((veh) => veh.id !== id),
+              });
+              toast('Successfully Deleted!')
+    
+            } catch (e) {
+              console.log(e);
+            }
+          }else{
+           
+            Swal.fire({  
+              icon: 'error',  
+              title: 'Oops..',  
+              text: 'Vehicle details are safe!',  
+             
+            }); 
+          }
+        });  
 
-          this.getAllVehicles();    
-          this.setState({
-            vehicle: this.state.vehicle.filter((veh) => veh.id !== id),
-          });
-          toast('Deleted!')
-        } catch (e) {
-          console.log(e);
-        }
       };
+     
 
-
-    
 render() {
+  <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/generateVehicleReport')}}>  Generate Report</button>
+ 
     return (
      //   this.state.vehicle.map((car) => {
-
-     
+    
         this.state.vehicle.map(car =>
-            <Col lg={3} key={car._id} className="mb-3">
+            <Col lg={3} key={car._id} className="mb-3" >
             <Card className="h-100">
             <Card.Img variant="top" />
            <Card.Img variant="top" src={car.image} /> 
@@ -80,13 +106,20 @@ render() {
                 </ListGroupItem>
             </ListGroup>
             </Card>
+           
         </Col>
+       
+   
+        
          )
-     
+
+
+         
             
     ) ;
-
 }
+
+
 
 };
 

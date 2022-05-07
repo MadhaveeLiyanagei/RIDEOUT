@@ -10,25 +10,17 @@ import Payment from './Components/Payment';
 import User from './Components/User';
 import banner from './imgs/banner.png';
 import UpdateCar from './Components/UpdateCar';
-//import Navbarv from './Components/Navbarv';
 import AddSupplier from './Components/AddSupplier';
 import SupplierList from './Components/SupplierList';
 import UpdateSupplier from './Components/UpdateSupplier';
 import Driver from './Components/Driver';
-//import banner from './imgs/banner.png';
-//import UpdateCar from './Components/UpdateCar'; 
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-//import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
-
-//import AddSupplier from './Components/AddSupplier';
-//import SupplierList from './Components/SupplierList'
-//import UpdateSupplier from './Components/UpdateSupplier';
-
 import CarListUser from './Components/CarListUser';
+import VehicleReport from './Components/VehicleReport';
 
 
 
@@ -90,44 +82,29 @@ function App() {
               <Route exact path="/" component={Home}/>            
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
-
               <Route path="/payment" component={Payment}/>        
-
               <Route path="/user" component={User}/>  
-                
               <Route path="/update/:id" component={UpdateCar}/>
-                  
-
-                    <Route path="/NavBar" component={NavBar}></Route>
-                    <Route path="/supplier" component={AddSupplier} />
-                    <Route path="/supplierList" component={SupplierList} />
-                    <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
-
+              <Route path="/NavBar" component={NavBar}></Route>
+              <Route path="/supplier" component={AddSupplier} />
+              <Route path="/supplierList" component={SupplierList} />
+              <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
               <Route path="/payment" component={Payment}/>   
-
               <Route path="/CarListUser" component={CarListUser}/> 
-
-
-
               <Route path="/user" component={User}/> 
               <Route path="/driver" component={Driver}/> 
               <Route path="/driverdetail" component={DriverDetail}/> 
               <Route path="/updatedriver/:id" component={UpdateDriver}/>  
               <Route path="/viewdriver/:id" component={ViewDriver}/>        
-
               <Route path="/driver" component={Driver}/>     
-
-
               <Route path="/booking" component={Booking}/> 
-
-
               <Route path="/update/:id" component={UpdateCar}/>      
               <Route path="/SignUp" component={SignUp} />
               <Route path="/SignIn" component={SignIn} />
               <Route path="/supplier" component={AddSupplier} />
               <Route path="/supplierList" component={SupplierList} />
               <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
-              d
+              <Route path="/generateVehicleReport" component={VehicleReport}/> 
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">
