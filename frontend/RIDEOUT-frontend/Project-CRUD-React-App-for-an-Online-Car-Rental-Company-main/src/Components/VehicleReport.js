@@ -5,41 +5,35 @@ import axios from 'axios';
 import {toast} from 'react-toastify';
 import Swal from "sweetalert2";
 import ReactDOM from "react-dom";
-
 import Pdf from "react-to-pdf";
-
-import { getAllDrivers, deleteDriverByID } from './../services/DriverService';
-
+import { getAllVehicles, deleteVehicleByID } from './../services/carService';
 
 const ref = React.createRef();
-class DriverDetail extends Component {
+class VehicleReport extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-          driver: [],
+          vehicle: [],
           searchedText: ""
         }
-       
+ 
     }
     componentDidMount() {
-      this.getAllDrivers();
+      this.getAllVehicles();
       
     }
 
-    getAllDrivers = async () => {
+    getAllVehicles = async () => {
         try {
-          const dri = await getAllDrivers();
-          console.log(dri.data);
-          this.setState({ driver: dri.data || [] });
+          const vehi = await getAllVehicles();
+          console.log(vehi.data);
+          this.setState({ vehicle: vehi.data || [] });
         } catch (e) {
           console.log(e);
         }
       };
 
-
-
-      deleteDriver = async (id) => {
+      deleteVehicle = async (id) => {
         Swal.fire(
           {  
           title: 'Are you sure?',  
@@ -53,13 +47,11 @@ class DriverDetail extends Component {
           console.log(result)
           if(result.isConfirmed == true){
             try {
-              const dri =  deleteDriverByID(id);
-    
-      
-    
-              this.getAllDrivers();    
+              const vehi =  deleteVehicleByID(id);
+
+              this.getAllVehicles();    
               this.setState({
-                    driver: this.state.driver.filter((dri) => dri.id !== id),
+                    vehicle: this.state.vehicle.filter((vehi) => vehi.id !== id),
               });
               toast('Successfully Deleted!')
     
@@ -78,42 +70,31 @@ class DriverDetail extends Component {
         });
       }
 
+      filterData(vehicle, searchkey) {
 
+        const result = vehicle.filter((vehicle) =>
 
-
-
-
-
-      filterData(driver, searchkey) {
-
-        const result = driver.filter((driver) =>
-
-        driver.driver_name.includes(searchkey) ||
-        driver.email.toLowerCase().includes(searchkey) ||
-        driver.nic.toLowerCase().includes(searchkey) ||
-        driver.phone_number.toLowerCase().includes(searchkey)
+        vehicle.modelName.includes(searchkey) ||
+        vehicle.manufactureYear.toLowerCase().includes(searchkey) ||
+        vehicle.brandName.toLowerCase().includes(searchkey) ||
+        vehicle.price.toLowerCase().includes(searchkey)
         )
 
-        this.setState({ driver: result })
+        this.setState({ vehicle: result })
     }
 
     handleSearchArea = (e) => {
 
         const searchkey = e.currentTarget.value;
 
-        axios.get("http://localhost:3000/driver/").then(res => {
+        axios.get("http://localhost:3000/vehicle/").then(res => {
             if (res.data.success) {
 
-                this.filterData(res.data.getAllDrivers, searchkey)
-
+                this.filterData(res.data.getAllVehicles, searchkey)
             }
         });
 
     }
-
-
-
-
 
       // deleteDriver = async (id) => {
       //   try {
@@ -136,18 +117,14 @@ class DriverDetail extends Component {
         return (
 
   <div className="App">
-   
-    
-
-
             <div>
-                 <h2 className="text-center">Driver List</h2>
+                 <h2 className="text-center">Vehicle List</h2>
                  
                  <div className = "row">
                  
                
                 <br></br>
-                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/driver/add')}}>  Add New Driver</button>
+                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/create')}}>  Add New Vehicle</button>
                  </div>
 
                  <div className="col-lg-3 mt-2 mb-2">
@@ -162,42 +139,31 @@ class DriverDetail extends Component {
                             </input>
                         </div>
 
-
-
                  <br></br>
                  <div className = "row"  ref={ref}  >
                         <table className = "table table-striped table-bordered">
 
                             <thead>
                                 <tr>
-                                   
-                                    <th> Driver Name</th>
-                                    <th> E-mail</th>
-                                    <th> NIC</th>
-                                    <th> Mobile</th>
-                                    <th> Gender</th>
-                                    <th> Actions</th>
+                                    <th> Model Name</th>
+                                    <th> Brand Name</th>
+                                    <th> Manufacture Year</th>
+                                    <th> Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                {  this.state.driver.map(
-                                    driver =>
+                                {  this.state.vehicle.map(
+                                    car =>
                                       
                                         <tr>
                                                
-                                             <td> {driver.driver_name}</td>
-                                             <td> {driver.email}</td>
-                                             <td> {driver.nic}</td>
-                                             <td> {driver.phone_number}</td>
-                                             <td> {driver.gender}</td>
-                                          <td>
-                                                 <Button as={Link} to={`/updateDriver/${driver._id}`} style={{marginLeft: "10px"}}  className="btn btn-info">Update </Button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDriver(driver._id)} className="btn btn-danger">Delete </button>
-                                                 {/* <button style={{marginLeft: "10px"}} onClick={ () => this.viewDriver(driver.driver_id)} className="btn btn-info">View </button>
-                                              */}
-                                             </td>
-                          
+                                             <td> {car.modelName}</td>
+                                             <td> {car.brandName}</td>
+                                             <td> {car.manufactureYear}</td>
+                                             <td> {car.price}</td>
+                                             
+                                         
                                         </tr>
                                 )
                                 }
@@ -206,26 +172,18 @@ class DriverDetail extends Component {
                      
                         </table>
                        
-                 </div>     
-                
-                              
+                 </div>                    
 
             </div>
 
 
-            <Pdf targetRef={ref}  filename="expensereport.pdf">
+            <Pdf targetRef={ref}  filename="Vehicle.pdf">
                     {({ toPdf }) => <button className="btn btn-success" onClick={toPdf}>Capture report as PDF</button>}
-                     </Pdf>
-
-
-
+            </Pdf>
 
             </div>
-
-
 
         )
     }
 }
-
-export default DriverDetail
+export default VehicleReport
