@@ -15,11 +15,11 @@ import AddSupplier from './Components/AddSupplier';
 import SupplierList from './Components/SupplierList';
 import UpdateSupplier from './Components/UpdateSupplier';
 import Driver from './Components/Driver';
-import banner from './imgs/banner.png';
-import UpdateCar from './Components/UpdateCar'; 
+//import banner from './imgs/banner.png';
+//import UpdateCar from './Components/UpdateCar'; 
 import SignUp from './Components/User/SignUp/SignUp';
 import SignIn from './Components/User/SignIn/SignIn';
-import User from './Components/User'
+//import User from './Components/User'
 import DriverDetail from './Components/DriverDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
