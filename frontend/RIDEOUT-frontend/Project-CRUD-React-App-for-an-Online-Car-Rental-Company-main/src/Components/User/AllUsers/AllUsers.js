@@ -8,7 +8,7 @@ import {
     Form,
     Spinner,
 } from "react-bootstrap";
-import { getAllUserAccountsService } from '../../../Services/UserServices'
+import { getAllUserAccountsService } from '../../../services/UserServices'
 
 class AllUsers extends Component {
     constructor(props) {

@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import React,{Component, useContext} from 'react'
 import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
@@ -7,7 +8,7 @@ import {addDriver} from '../services/DriverService';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
-import Swal from "sweetalert2";
+
 
 class Driver extends Component{
    

@@ -11,9 +11,9 @@ import {
     ToggleButton,
 } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { deleteUserAccountService, updateUserAccountService } from '../../../Services/UserServices'
+import { deleteUserAccountService, updateUserAccountService } from '../../../services/UserServices'
 import { UpdateUserAccountValidations } from '../../../Validations/UserValidations'
-import { SweetAlert } from '../../../Services/SweetAlert'
+import { SweetAlert } from '../../../services/SweetAlert'
 
 class UserProfile extends Component {
     constructor(props) {

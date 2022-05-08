@@ -64,3 +64,22 @@ export const getAllUserAccountsService = async () => {
         };
     }
 };
+
+
+export const updateUserAccountService = async (id, user) => {
+    try {
+    const res = await axios.put(`${API_ENDPOINT_PREFIX}user/UpdateUser/${id}`, user);
+    SweetAlert("success", "Done!", "Account Updated Succesfully!");
+    localStorage.setItem("user", JSON.stringify(res.data));
+    return {
+    status: true,
+    };
+    } catch (err) {
+    handleError(err);
+    return {
+    status: false,
+    };
+    }
+    };
+
+
