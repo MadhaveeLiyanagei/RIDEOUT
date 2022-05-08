@@ -21,7 +21,10 @@ import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
 import CarListUser from './Components/CarListUser';
 import VehicleReport from './Components/VehicleReport';
-
+import SignUp from './Components/User/SignUp/SignUp';
+import SignIn from './Components/User/SignIn/SignIn';
+import UserProfile from './Components/User/UserProfile/UserProfile';
+import AllUsers from './Components/User/AllUsers/AllUsers';
 
 
 
@@ -105,6 +108,8 @@ function App() {
               <Route path="/supplierList" component={SupplierList} />
               <Route path="/updateSupplier/:id" component={UpdateSupplier}/> 
               <Route path="/generateVehicleReport" component={VehicleReport}/> 
+              <Route path="/user" component={UserProfile} />
+              <Route path="/users" component={AllUsers} />   
             </Switch>
             </Container>
             <Container fluid className="bg-dark text-white text-center pt-3 pb-3">
