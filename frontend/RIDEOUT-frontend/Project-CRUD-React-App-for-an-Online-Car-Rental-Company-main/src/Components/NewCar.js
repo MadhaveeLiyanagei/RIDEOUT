@@ -208,7 +208,7 @@ class NewCar extends Component{
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Price
+                    Price per hour
                     </Form.Label>
                     <Col sm="10">
                         <Form.Control type="number" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} required noValidate/>

@@ -161,8 +161,7 @@ class VehicleReport extends Component {
                                              <td> {car.modelName}</td>
                                              <td> {car.brandName}</td>
                                              <td> {car.manufactureYear}</td>
-                                             <td> {car.price}</td>
-                                             
+                                             <td> {car.price}</td>   
                                          
                                         </tr>
                                 )
@@ -175,8 +174,6 @@ class VehicleReport extends Component {
                  </div>                    
 
             </div>
-
-
             <Pdf targetRef={ref}  filename="Vehicle.pdf">
                     {({ toPdf }) => <button className="btn btn-success" onClick={toPdf}>Capture report as PDF</button>}
             </Pdf>

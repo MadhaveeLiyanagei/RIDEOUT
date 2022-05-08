@@ -47,9 +47,6 @@ class CarList extends Component{
           if(result.isConfirmed == true){
             try {
               const vehi =  deleteVehicleByID(id);
-    
-      
-    
               this.getAllVehicles();    
               this.setState({
                 vehicle: this.state.vehicle.filter((veh) => veh.id !== id),
@@ -71,14 +68,13 @@ class CarList extends Component{
         });  
 
       };
-     
-
 render() {
-  <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/generateVehicleReport')}}>  Generate Report</button>
+  // <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/generateVehicleReport')}}>  Generate Report</button>
  
     return (
      //   this.state.vehicle.map((car) => {
-    
+      // <Button className="w-100" width="50px" as={Link} to={'/generateVehicleReport'}>Generate Report</Button>
+     
         this.state.vehicle.map(car =>
             <Col lg={3} key={car._id} className="mb-3" >
             <Card className="h-100">
@@ -86,11 +82,10 @@ render() {
            <Card.Img variant="top" src={car.image} /> 
             <Card.Body>
                 <Card.Title>{car.modelName} {car.manufactureYear}</Card.Title>
-                
             </Card.Body>
             <ListGroup className="list-group-flush">
                 <ListGroupItem><span className="fw-bold">Brand Name:</span> {car.brandName}</ListGroupItem>
-                <ListGroupItem><span className="fw-bold">Price:</span> {car.price}</ListGroupItem>
+                <ListGroupItem><span className="fw-bold">Price per hour:</span> {car.price}</ListGroupItem>
                 <ListGroupItem>
                     <Row>
                          {/* <Row>
@@ -100,22 +95,12 @@ render() {
                           <Col><Button as={Link} to={`/update/${car._id}`} variant="primary" className="w-100">Update</Button></Col> 
                          
                         <Col><Button variant="danger" className="w-100" onClick={()=> this.deleteVehicle(car._id) }>Delete</Button></Col>
-                    </Row>
-                    
-                    
+                    </Row>                    
                 </ListGroupItem>
             </ListGroup>
-            </Card>
-           
-        </Col>
-       
-   
-        
-         )
-
-
-         
-            
+            </Card> 
+        </Col>  
+         )           
     ) ;
 }
 
