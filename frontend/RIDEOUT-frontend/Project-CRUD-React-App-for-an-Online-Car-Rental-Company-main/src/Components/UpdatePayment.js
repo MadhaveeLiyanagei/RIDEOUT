@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useHistory,useParams } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import  { Component } from "react";
-import { getPaymentById,updatePayment } from "../services/paymentService";
+import { getPaymentById,updatePayment } from "../services/PaymentService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();

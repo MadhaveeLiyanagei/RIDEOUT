@@ -19,6 +19,8 @@ import PaymentDetail from './Components/PaymentDetail';
 import UpdateDriver from './Components/UpdateDriver';
 import ViewDriver from './Components/ViewDriver';
 import CarListUser from './Components/CarListUser';
+import UpdatePayment from './Components/UpdatePayment';
+import UpdateBooking from './Components/UpdateBooking';
 
 import BookingDetail from './Components/BookingDetail';
 
@@ -77,7 +79,7 @@ function App() {
               <Route path="/create" component={NewCar}/> 
               <Route path="/booking" component={Booking}/>
               <Route path="/payment" component={Payment}/>   
-              <Route path="/updatepayment/:id" component={UpdatePayment}/>  
+              <Route path="/UpdatePayment/:id" component={UpdatePayment}/>  
               <Route path="/paymentdetail" component={PaymentDetail}/> 
            
 

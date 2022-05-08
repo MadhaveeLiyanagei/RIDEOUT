@@ -1,3 +1,5 @@
+import Pdf from "react-to-pdf";
+
 import {Col, Card, ListGroup, ListGroupItem, Alert, Button, Row} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { Component } from "react";
@@ -6,7 +8,7 @@ import BookingService from "../services/BookingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
-import Pdf from "react-to-pdf";
+
 
 class CarListUser extends Component{
 

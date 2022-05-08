@@ -1,15 +1,16 @@
+import Swal from "sweetalert2";
+
 import React,{useContext} from 'react'
 import { MainContext } from '../Contexts/MainContext'
 import { useState } from "react";
 import { useHistory,useParams } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import  { Component } from "react";
-import { getBookingById,updateBooking } from "../services/BookingService";
+import { getBookById,updateBooking } from "../services/BookingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
-import Swal from "sweetalert2";
 
 
 class UpdateBooking extends Component{
@@ -67,7 +68,7 @@ class UpdateBooking extends Component{
         console.log(this.props.match.params.id)
 
         try{
-             getBookingById(this.props.match.params.id).then((res)=>{
+             getBookById(this.props.match.params.id).then((res)=>{
             
                 let booking = res.data.post;
                  this.setState({booking_id: booking._id,

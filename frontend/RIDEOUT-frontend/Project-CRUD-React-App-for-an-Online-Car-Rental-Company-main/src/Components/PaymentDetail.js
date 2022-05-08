@@ -266,4 +266,4 @@ class PaymentDetail extends Component {
     }
 }
 
-export default DriverDetail
+export default PaymentDetail
