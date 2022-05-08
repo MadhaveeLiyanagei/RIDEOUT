@@ -4,66 +4,91 @@ import { useState } from "react";
 import { useHistory,useParams } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import  { Component } from "react";
-import { getCarById,updateVehicle } from "../services/carService";
+import { getPaymentById,updatePayment } from "../services/paymentService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 
-class UpdateCar extends Component{
+class UpdatePayment extends Component{
 
     constructor(props) {
         super(props)
 
         this.state = {
-            car_id: this.props.match.params.driver_id,
-           
-            modelName:"",
-            brandName:"",
-            manufactureYear:"",
-            price:"",
+            payment_id: this.props.match.params.payment_id,
+            userName: "",
+            vehicleNo: "",
+            paidtDate: "",
+            total: ""
         }
        
     }
 
-    onChanageVehicleModelName = (modelName) => {
-        this.setState({
-            modelName: modelName.target.value,
-        });
-      };
-      onChanageVehicleBrandName = (brandName) => {
-        this.setState({
-            brandName: brandName.target.value,
-        });
-      };
-      onChanageVehicleManufactureYear = (manufactureYear) => {
-        this.setState({
-            manufactureYear: manufactureYear.target.value,
-        });
-      };
-      onChanageVehiclePrice = (price) => {
-        this.setState({
-            price: price.target.value,
-        });
-      };
-
     componentDidMount() {
-        this.getCar();
+        this.getPayment();
       }
 
-    getCar = async () =>{
+
+  
+    onChangeUserName = (userName) => {
+        this.setState({
+            userName: userName.target.value,
+        });
+      };
+      onChangeVehicleNo = (vehicleNo) => {
+        this.setState({
+            vehicleNo: vehicleNo.target.value,
+        });
+      };
+      onChangePaidtDate = (paidtDate) => {
+        this.setState({
+            paidtDate: paidtDate.target.value,
+        });
+      };
+      onChangeTotal = (total) => {
+        this.setState({
+            total: total.target.value,
+        });
+      };
+
+
+    // onChanageVehicleModelName = (modelName) => {
+    //     this.setState({
+    //         modelName: modelName.target.value,
+    //     });
+    //   };
+    //   onChanageVehicleBrandName = (brandName) => {
+    //     this.setState({
+    //         brandName: brandName.target.value,
+    //     });
+    //   };
+    //   onChanageVehicleManufactureYear = (manufactureYear) => {
+    //     this.setState({
+    //         manufactureYear: manufactureYear.target.value,
+    //     });
+    //   };
+    //   onChanageVehiclePrice = (price) => {
+    //     this.setState({
+    //         price: price.target.value,
+    //     });
+    //   };
+
+
+      getPayment = async () =>{
 
         console.log(this.props.match.params.id)
 
         try{
-             getCarById(this.props.match.params.id).then((res)=>{
+             getPaymentById(this.props.match.params.id).then((res)=>{
             
-                let car = res.data.post;
-                 this.setState({car_id: car._id,
-                     modelName: car.modelName,
-                     brandName : car.brandName,
-                     manufactureYear:car.manufactureYear,
-                     price:car.price
+                let payment = res.data.post;
+                 this.setState({payment_id: payment._id,
+                    userName: payment.userName,
+                    vehicleNo : payment.vehicleNo,
+                    paidtDate:payment.paidtDate,
+                    total:payment.total,
+                
                  });
             })
        
@@ -75,17 +100,19 @@ class UpdateCar extends Component{
 
    onSubmit = async(v)=>{
     v.preventDefault();
-    const vehicle = {
-        modelName: this.state.modelName,
-        brandName: this.state.brandName,
-        manufactureYear: this.state.manufactureYear,
-        price: this.state.price,
+    const payment = {
+        
+        userName: this.state.userName,
+        vehicleNo: this.state.vehicleNo,
+        paidtDate: this.state.paidtDate,
+        total: this.state.total,
+     
     };
     try {
-        const vehi = await updateVehicle(this.state.car_id,vehicle);
-        console.log(vehi.status);
+        const sup = await updatePayment(this.state.payment_id,payment);
+        console.log(sup.status);
         toast('Successfully Updated!')
-        this.props.history.push("/");
+        this.props.history.push("/paymentList");
       } catch (e) {
         console.log(e);
       }
@@ -106,40 +133,43 @@ class UpdateCar extends Component{
     render() {
         return(
             <Row className="update">
-            <h2>Update Car</h2>
+            <h2>Update Payment</h2>
             <Form onSubmit={this.onSubmit} noValidate>
+               
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Model Name
+                    User Name
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Model Name" value={this.state.modelName} onChange={this.onChanageVehicleModelName} noValidate/>
+                        <Form.Control type="text" placeholder=" User Name" value={this.state.userName} onChange={this.onChangeUserName} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Brand Name
+                    E-mail
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Brand Name" value={this.state.brandName} onChange={this.onChanageVehicleBrandName} noValidate/>
+                        <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeVehicleNo} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Manufacture Year
+                    NIC
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Manufacture Year" value={this.state.manufactureYear} onChange={this.onChanageVehicleManufactureYear} noValidate/>
+                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangePaidtDate} noValidate/>
                     </Col>
                 </Form.Group>
+
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Price
+                    Phone Number
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} noValidate/>
+                        <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeTotal} noValidate/>
                     </Col>
                 </Form.Group>
+
                 {/* <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
                     Url Img
@@ -149,9 +179,8 @@ class UpdateCar extends Component{
                     </Col>
                 </Form.Group> */}
     
-              <Button type="submit">Update Car</Button>
+              <Button type="submit" >Update Payment</Button>
             </Form>
-        
           </Row>
         )
     }
@@ -210,4 +239,4 @@ class UpdateCar extends Component{
 //     )
 // }
 
-export default UpdateCar
+export default UpdatePayment

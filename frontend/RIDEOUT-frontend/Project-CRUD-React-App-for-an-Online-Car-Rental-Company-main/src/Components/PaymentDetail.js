@@ -8,30 +8,30 @@ import ReactDOM from "react-dom";
 
 import Pdf from "react-to-pdf";
 
-import { getAllDrivers, deleteDriverByID } from './../services/DriverService';
+import { getAllPayments, deletePaymentByID } from './../services/PaymentService';
 
 
 const ref = React.createRef();
-class DriverDetail extends Component {
+class PaymentDetail extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          driver: [],
+          payment: [],
           searchedText: ""
         }
        
     }
     componentDidMount() {
-      this.getAllDrivers();
+      this.getAllPayments();
       
     }
 
-    getAllDrivers = async () => {
+    getAllPayments = async () => {
         try {
-          const dri = await getAllDrivers();
-          console.log(dri.data);
-          this.setState({ driver: dri.data || [] });
+          const pay = await getAllPayments();
+          console.log(pay.data);
+          this.setState({ payment: pay.data || [] });
         } catch (e) {
           console.log(e);
         }
@@ -39,7 +39,7 @@ class DriverDetail extends Component {
 
 
 
-      deleteDriver = async (id) => {
+      deletePayment = async (id) => {
         Swal.fire(
           {  
           title: 'Are you sure?',  
@@ -53,13 +53,13 @@ class DriverDetail extends Component {
           console.log(result)
           if(result.isConfirmed == true){
             try {
-              const dri =  deleteDriverByID(id);
+              const pay =  deletePaymentByID(id);
     
       
     
-              this.getAllDrivers();    
+              this.getAllPayments();    
               this.setState({
-                    driver: this.state.driver.filter((dri) => dri.id !== id),
+                    payment: this.state.payment.filter((pay) => pay.id !== id),
               });
               toast('Successfully Deleted!')
     
@@ -71,7 +71,7 @@ class DriverDetail extends Component {
             Swal.fire({  
               icon: 'info',  
               title: 'OK..',  
-              text: 'Driver details are safe!',  
+              text: 'Payment details are safe!',  
              
             }); 
           }
@@ -180,13 +180,13 @@ class DriverDetail extends Component {
 
 
             <div>
-                 <h2 className="text-center">Driver List</h2>
+                 <h2 className="text-center">Payment List</h2>
                  
                  <div className = "row">
                  
                
                 <br></br>
-                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/driver/add')}}>  Add New Driver</button>
+                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/payment/add')}}>  Add New Payment</button>
                  </div>
 
                  <div className="col-lg-3 mt-2 mb-2">
@@ -210,29 +210,28 @@ class DriverDetail extends Component {
                             <thead>
                                 <tr>
                                    
-                                    <th> Driver Name</th>
-                                    <th> E-mail</th>
-                                    <th> NIC</th>
-                                    <th> Mobile</th>
-                                    <th> Gender</th>
-                                    <th> Actions</th>
+                                    <th> User Name</th>
+                                    <th> Vehicle No</th>
+                                    <th> Paid Date</th>
+                                    <th> Total</th>
+                                
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                {  this.state.driver.map(
-                                    driver =>
+                                {  this.state.payment.map(
+                                    payment =>
                                       
                                         <tr>
                                                
-                                             <td> {driver.driver_name}</td>
-                                             <td> {driver.email}</td>
-                                             <td> {driver.nic}</td>
-                                             <td> {driver.phone_number}</td>
-                                             <td> {driver.gender}</td>
+                                             <td> {payment.userName}</td>
+                                             <td> {payment.vehicleNo}</td>
+                                             <td> {payment.paidtDate}</td>
+                                             <td> {payment.total}</td>
+                                         
                                           <td>
-                                                 <Button as={Link} to={`/updateDriver/${driver._id}`} style={{marginLeft: "10px"}}  className="btn btn-info">Update </Button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDriver(driver._id)} className="btn btn-danger">Delete </button>
+                                                 <Button as={Link} to={`/updatePayment/${payment._id}`} style={{marginLeft: "10px"}}  className="btn btn-info">Update </Button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deletePayment(payment._id)} className="btn btn-danger">Delete </button>
                                                  {/* <button style={{marginLeft: "10px"}} onClick={ () => this.viewDriver(driver.driver_id)} className="btn btn-info">View </button>
                                               */}
                                              </td>

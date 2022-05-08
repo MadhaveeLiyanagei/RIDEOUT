@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useHistory,useParams } from "react-router-dom";
 import {Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import  { Component } from "react";
-import { getDriverById,updateDriver } from "../services/DriverService";
+import { getBookingById,updateBooking } from "../services/BookingService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
@@ -12,70 +12,70 @@ toast.configure();
 import Swal from "sweetalert2";
 
 
-class UpdateDriver extends Component{
+class UpdateBooking extends Component{
 
     constructor(props) {
         super(props)
 
         this.state = {
-            driver_id: this.props.match.params.driver_id,
-            driver_name: "",
-            email: "",
-            nic: "",
-            phone_number: "",
-            gender: ""
+            booking_id: this.props.match.params.booking_id,
+            username: "",
+            startDate: "",
+            endDate: "",
+            totalamount: "",
+            
         }
        
     }
 
     componentDidMount() {
-        this.getDriver();
+        this.getBooking();
       }
 
 
   
-    onChangeDriverName = (driver_name) => {
+    onChangeUserName = (username) => {
         this.setState({
-            driver_name: driver_name.target.value,
+            username: username.target.value,
         });
       };
-      onChangeDriverEmail = (email) => {
+      onChangeVehicleNo = (vehicleNo) => {
         this.setState({
-            email: email.target.value,
+            vehicleNo: vehicleNo.target.value,
         });
       };
-      onChangeDriverNIC = (nic) => {
+      onChangeStartDate= (startDate) => {
         this.setState({
-            nic: nic.target.value,
-        });
-      };
-      onChangeDriverPhoneNumber = (phone_number) => {
-        this.setState({
-            phone_number: phone_number.target.value,
+            startDate: startDate.target.value,
         });
       };
 
-      onChangeDriverGender = (gender) => {
+      onChangeEndDate = (endDate) => {
         this.setState({
-            gender: gender.target.value,
+            endDate: endDate.target.value,
         });
       };
 
+      onChangeTotalamount = (endDate) => {
+        this.setState({
+            endDate: endDate.target.value,
+        });
+      };
 
-      getDriver = async () =>{
+      getBooking = async () =>{
 
         console.log(this.props.match.params.id)
 
         try{
-             getDriverById(this.props.match.params.id).then((res)=>{
+             getBookingById(this.props.match.params.id).then((res)=>{
             
-                let driver = res.data.post;
-                 this.setState({driver_id: driver._id,
-                    driver_name: driver.driver_name,
-                    email : driver.email,
-                    nic:driver.nic,
-                    phone_number:driver.phone_number,
-                    gender:driver.gender
+                let booking = res.data.post;
+                 this.setState({booking_id: booking._id,
+                    userName: booking.userName,
+                    vehicleNo : booking.vehicleNo,
+                    startDate:booking.startDate,
+                    endDate:booking.endDate,
+                    totalamount:booking.totalamount
                  });
             })
        
@@ -112,60 +112,60 @@ class UpdateDriver extends Component{
 
    onSubmit = async (v) => {
 
-    console.log(this.state.driver_name)
+    console.log(this.state.username)
 
-    if(this.state.driver_name == ''){
+    if(this.state.username == ''){
       console.log('here');
 
       Swal.fire({  
         icon: 'error',  
         title: 'Oops...',  
-        text: 'Driver Name is Required !',  
+        text: 'User Name is Required !',  
        
       });  
       
     }
-    else if(this.state.email == ''){
+    else if(this.state.vehicleNo == ''){
       console.log('here');
 
       Swal.fire({  
         icon: 'error',  
         title: 'Oops...',  
-        text: 'E-mail is Required !',  
+        text: 'Vehicle No is Required !',  
        
       });  
       
     }
-    else if(this.state.nic == ''){
+    else if(this.state.startDate == ''){
       console.log('here');
 
       Swal.fire({  
         icon: 'error',  
         title: 'Oops...',  
-        text: 'NIC is Required !',  
+        text: 'Start Date is Required !',  
        
       });  
       
     }
 
-    else if(this.state.phone_number == ''){
+    else if(this.state.endDate == ''){
         console.log('here');
 
         Swal.fire({  
           icon: 'error',  
           title: 'Oops...',  
-          text: 'Phone Number is Required !',  
+          text: ' End Date is Required !',  
          
         });  
         
       }
-      else if(this.state.gender == ''){
+      else if(this.state.totalamount == ''){
         console.log('here');
 
         Swal.fire({  
           icon: 'error',  
           title: 'Oops...',  
-          text: 'Gender is Required !',  
+          text: 'Total Amount is Required !',  
          
         });  
         
@@ -174,19 +174,19 @@ class UpdateDriver extends Component{
 
       v.preventDefault();
 
-      const driver = {
+      const booking = {
         
-        driver_name: this.state.driver_name,
-        email: this.state.email,
-        nic: this.state.nic,
-        phone_number: this.state.phone_number,
-        gender: this.state.gender,
+        username: this.state.username,
+        vehicleNo: this.state.vehicleNo,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        totalamount: this.state.totalamount,
     };
     try {
-      const drive = await updateDriver(this.state.driver_id,driver);
-      console.log(drive.status);
+      const book = await updateBooking(this.state.booking_id,booking);
+      console.log(book.status);
       toast('Successfully Updated!')
-      this.props.history.push("/driverdetail");
+      this.props.history.push("/bookingdetail");
     } catch (e) {
       console.log(e);
     }
@@ -208,57 +208,57 @@ class UpdateDriver extends Component{
     render() {
         return(
             <Row className="update">
-            <h2>Update Driver</h2>
+            <h2>Update Booking</h2>
             <Form onSubmit={this.onSubmit} noValidate>
                
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Driver Name
+                    User Name
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder=" Driver Name" value={this.state.driver_name} onChange={this.onChangeDriverName} noValidate/>
+                        <Form.Control type="text" placeholder=" User Name" value={this.state.username} onChange={this.onChangeUserName} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    E-mail
+                    Vehicle No
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="email" placeholder="E-mail" value={this.state.email} onChange={this.onChangeDriverEmail} noValidate/>
+                        <Form.Control type="vehicleNo" placeholder="Vehicle No" value={this.state.vehicleNo} onChange={this.onChangeVehicleNo} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    NIC
+                    Start Date
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeDriverNIC} noValidate/>
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">
-                    Phone Number
-                    </Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeDriverPhoneNumber} noValidate/>
+                        <Form.Control type="text" placeholder="startDate" value={this.state.startDate} onChange={this.onChangeStartDate} noValidate/>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
-                    Gender
+                    End Date
                     </Form.Label>
                     <Col sm="10">
-                    <Form.Label column sm="2">    <input type="radio" value="Male" name="gender"  checked={this.state.gender} onChange={this.onChangeDriverGender} noValidate/> Male
-                    </Form.Label>  <Form.Label column sm="2">  <input type="radio" value="Female" name="gender" onChange={this.onChangeDriverGender} noValidate/> Female
-                    </Form.Label>  <Form.Label column sm="2"> <input type="radio" value="Other" name="gender" onChange={this.onChangeDriverGender} noValidate/> Other
-                    </Form.Label></Col>
+                        <Form.Control type="text" placeholder="End Date" value={this.state.endDate} onChange={this.onChangeEndDate} noValidate/>
+                    </Col>
                 </Form.Group>
+
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Total Amount
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder=" totalamount" value={this.state.totalamount} onChange={this.onChangeTotalamount} noValidate/>
+                    </Col>
+                </Form.Group>
+
+            
               
 
     
-              <Button type="submit" >Update Driver</Button>
+              <Button type="submit" >Update Booking</Button>
             </Form>
           </Row>
         )
@@ -269,4 +269,4 @@ class UpdateDriver extends Component{
 
 
 
-export default UpdateDriver
+export default UpdateBooking

@@ -125,7 +125,7 @@ class SupplierList extends Component {
             <div>
                  <h2 className="text-center">Supplier List</h2>
                  <div className = "row">
-                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/supplier/add')}}>  Add Supplier</button>
+                    <button className="btn btn-primary" onClick={this.addSupplier}>  Add Supplier</button>
                  </div>
                  <br></br>
                  <div className = "row">

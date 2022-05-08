@@ -62,6 +62,10 @@ class Driver extends Component{
           });  
           
         }
+       
+
+
+
         else if(this.state.email == ''){
           console.log('here');
   
@@ -123,7 +127,7 @@ class Driver extends Component{
           const drive = await addDriver(driver);
           console.log(drive.status);
           toast('Driver Added!')
-          this.props.history.push("/");
+          this.props.history.push("/driverdetail");
         } catch (e) {
           console.log(e);
         }
@@ -147,7 +151,7 @@ class Driver extends Component{
                     Email 
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="email" placeholder="E-mail" value={this.state.email} onChange={this.onChanageDriverEmail} noValidate/>
+                        <Form.Control type="email" placeholder="someone@mail.com" value={this.state.email} onChange={this.onChanageDriverEmail} noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -186,6 +190,9 @@ class Driver extends Component{
                 </Form.Group> */}
     
               <Button type="submit" >Add Driver</Button>
+
+
+           
             </Form>
           </Row>
         )

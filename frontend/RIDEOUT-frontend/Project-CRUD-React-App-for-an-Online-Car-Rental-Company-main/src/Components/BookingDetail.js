@@ -8,30 +8,30 @@ import ReactDOM from "react-dom";
 
 import Pdf from "react-to-pdf";
 
-import { getAllDrivers, deleteDriverByID } from './../services/DriverService';
+import { getAllBookings, deleteBookingByID } from './../services/BookingService';
 
 
 const ref = React.createRef();
-class DriverDetail extends Component {
+class BookingDetail extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-          driver: [],
+          booking: [],
           searchedText: ""
         }
        
     }
     componentDidMount() {
-      this.getAllDrivers();
+      this.getAllBookings();
       
     }
 
-    getAllDrivers = async () => {
+    getAllBookings = async () => {
         try {
-          const dri = await getAllDrivers();
-          console.log(dri.data);
-          this.setState({ driver: dri.data || [] });
+          const book = await getAllBookings();
+          console.log(book.data);
+          this.setState({ booking: book.data || [] });
         } catch (e) {
           console.log(e);
         }
@@ -39,7 +39,7 @@ class DriverDetail extends Component {
 
 
 
-      deleteDriver = async (id) => {
+      deleteBooking = async (id) => {
         Swal.fire(
           {  
           title: 'Are you sure?',  
@@ -53,13 +53,13 @@ class DriverDetail extends Component {
           console.log(result)
           if(result.isConfirmed == true){
             try {
-              const dri =  deleteDriverByID(id);
+              const book =  deleteBookingByID(id);
     
       
     
-              this.getAllDrivers();    
+              this.getAllBooking();    
               this.setState({
-                    driver: this.state.driver.filter((dri) => dri.id !== id),
+                    booking: this.state.booking.filter((book) => book.id !== id),
               });
               toast('Successfully Deleted!')
     
@@ -71,7 +71,7 @@ class DriverDetail extends Component {
             Swal.fire({  
               icon: 'info',  
               title: 'OK..',  
-              text: 'Driver details are safe!',  
+              text: 'Booking details are safe!',  
              
             }); 
           }
@@ -180,13 +180,13 @@ class DriverDetail extends Component {
 
 
             <div>
-                 <h2 className="text-center">Driver List</h2>
+                 <h2 className="text-center">Booking List</h2>
                  
                  <div className = "row">
                  
                
                 <br></br>
-                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/driver/add')}}>  Add New Driver</button>
+                    <button className="btn btn-primary" onClick={()=> {this.props.history.replace('/booking/add')}}>  Add New Booking</button>
                  </div>
 
                  <div className="col-lg-3 mt-2 mb-2">
@@ -210,29 +210,29 @@ class DriverDetail extends Component {
                             <thead>
                                 <tr>
                                    
-                                    <th> Driver Name</th>
-                                    <th> E-mail</th>
-                                    <th> NIC</th>
-                                    <th> Mobile</th>
-                                    <th> Gender</th>
+                                    <th> User Name</th>
+                                    <th> Vehicle No</th>
+                                    <th> Start Date</th>
+                                    <th> End Date</th>
+                                    <th> Total amout to pay</th>
                                     <th> Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                {  this.state.driver.map(
-                                    driver =>
+                                {  this.state.booking.map(
+                                    booking =>
                                       
                                         <tr>
                                                
-                                             <td> {driver.driver_name}</td>
-                                             <td> {driver.email}</td>
-                                             <td> {driver.nic}</td>
-                                             <td> {driver.phone_number}</td>
-                                             <td> {driver.gender}</td>
+                                             <td> {booking.username}</td>
+                                             <td> {booking.vehicleNo}</td>
+                                             <td> {booking.startDate}</td>
+                                             <td> {booking.endDate}</td>
+                                             <td> {booking.totalamount}</td>
                                           <td>
-                                                 <Button as={Link} to={`/updateDriver/${driver._id}`} style={{marginLeft: "10px"}}  className="btn btn-info">Update </Button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDriver(driver._id)} className="btn btn-danger">Delete </button>
+                                                 <Button as={Link} to={`/updateBooking/${booking._id}`} style={{marginLeft: "10px"}}  className="btn btn-info">Update </Button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deleteBooking(booking._id)} className="btn btn-danger">Delete </button>
                                                  {/* <button style={{marginLeft: "10px"}} onClick={ () => this.viewDriver(driver.driver_id)} className="btn btn-info">View </button>
                                               */}
                                              </td>
@@ -267,4 +267,4 @@ class DriverDetail extends Component {
     }
 }
 
-export default DriverDetail
+export default BookingDetail
