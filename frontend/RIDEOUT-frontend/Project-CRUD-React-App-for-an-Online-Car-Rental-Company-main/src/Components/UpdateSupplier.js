@@ -31,8 +31,6 @@ class UpdateSupplier extends Component{
         this.getSupplier();
       }
 
-
-  
     onChangeSupplierName = (supplier_name) => {
         this.setState({
             supplier_name: supplier_name.target.value,

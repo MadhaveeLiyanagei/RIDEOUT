@@ -12,15 +12,14 @@ import Swal from "sweetalert2";
 toast.configure();
 
 class AddSupplier extends Component{
-   
-
     state = {
         
         supplier_name: "",
         email: "",
         nic: "",
         phone_number: "",
-        gender: ""
+        gender: "",
+        setError:""
       };
 
    
@@ -40,6 +39,7 @@ class AddSupplier extends Component{
         });
       };
       onChangeSupplierPhoneNumber = (phone_number) => {
+    
         this.setState({
             phone_number: phone_number.target.value,
         });
@@ -50,6 +50,14 @@ class AddSupplier extends Component{
             gender: gender.target.value,
         });
       };
+
+    validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    }
 
       onSubmit = async (v) => {
 
@@ -68,9 +76,16 @@ class AddSupplier extends Component{
            
         //   });  
           
+<<<<<<< HEAD
         // }
         // if(this.state.email== ''){
         //   console.log('here');
+=======
+        }
+   
+        if(this.state.email== '')  {
+          console.log('here');
+>>>>>>> 1f8845664eda5ba8ec663846ba987a98e2a28e73
   
         //   Swal.fire({  
         //     icon: 'error',  
@@ -79,9 +94,17 @@ class AddSupplier extends Component{
            
         //   });  
           
+<<<<<<< HEAD
         // }
         // if(this.state.nic == ''){
         //   console.log('here');
+=======
+        }
+
+
+         if(this.state.nic == ''){
+          console.log('here');
+>>>>>>> 1f8845664eda5ba8ec663846ba987a98e2a28e73
   
         //   Swal.fire({  
         //     icon: 'error',  
@@ -154,7 +177,7 @@ class AddSupplier extends Component{
 
                         <Form.Control type="text" placeholder=" Supplier Name" value={this.state.supplier_name} onChange={this.onChangeSupplierName} noValidate/>
 
-                        <Form.Control type="text" placeholder=" Supplier Name" value={this.state.supplier_name} onChange={this.onChangeSupplierName} required noValidate/>
+                        {/* <Form.Control type="text" placeholder=" Supplier Name" value={this.state.supplier_name} onChange={this.onChangeSupplierName} required noValidate/> */}
 
                     </Col>
                 </Form.Group>
@@ -166,7 +189,7 @@ class AddSupplier extends Component{
 
                         <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeSupplierEmail} noValidate/>
 
-                        <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeSupplierEmail} required noValidate/>
+                        {/* <Form.Control type="text" placeholder="E-mail" value={this.state.email} onChange={this.onChangeSupplierEmail} required noValidate/> */}
 
                     </Col>
                 </Form.Group>
@@ -178,7 +201,7 @@ class AddSupplier extends Component{
 
                         <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeSupplierNIC} noValidate/>
 
-                        <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeSupplierNIC} required noValidate/>
+                        {/* <Form.Control type="text" placeholder="NIC" value={this.state.nic} onChange={this.onChangeSupplierNIC} required noValidate/> */}
 
                     </Col>
                 </Form.Group>
@@ -191,7 +214,7 @@ class AddSupplier extends Component{
 
                         <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeSupplierPhoneNumber} noValidate/>
 
-                        <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeSupplierPhoneNumber} required noValidate/>
+                        {/* <Form.Control type="text" placeholder="Phone Number" value={this.state.phone_number} onChange={this.onChangeSupplierPhoneNumber} required noValidate/> */}
 
                     </Col>
                 </Form.Group>
@@ -204,7 +227,7 @@ class AddSupplier extends Component{
 
                         <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeSupplierGender} noValidate/>
 
-                        <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeSupplierGender} required noValidate/>
+                        {/* <Form.Control type="text" placeholder="Gender" value={this.state.gender} onChange={this.onChangeSupplierGender} required noValidate/> */}
 
                     </Col>
                 </Form.Group>

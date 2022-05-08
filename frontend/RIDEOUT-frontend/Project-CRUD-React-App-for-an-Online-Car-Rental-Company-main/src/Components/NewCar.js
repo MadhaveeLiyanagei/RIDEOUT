@@ -8,9 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2"; 
 import ImageUploader from "react-image-upload";
 import "react-image-upload/dist/index.css";
+
 toast.configure();
 
 class NewCar extends Component{
+
+  
 
     state = {
        
@@ -53,15 +56,33 @@ class NewCar extends Component{
         });
       };
 
-      getImageFileObject(imageFile) {
-        console.log(imageFile);
+    //   getImageFileObject(imageFile) {
+
+        
+
+
+    //     console.log(imageFile);
     
-        this.state.image = imageFile.dataUrl;
-      }
+    //     this.state.image = imageFile.dataUrl;
+      
+    // }
     
-      runAfterImageDelete(file) {
-        console.log({ file });
-      }
+    //   runAfterImageDelete(file) {
+    //     console.log({ file });
+    //   }
+
+      onChangeImage = (e) => {
+        if (e.target.type === "file") {
+          const scope = this;
+          let reader = new FileReader();
+          reader.readAsDataURL(e.target.files[0]);
+          reader.onload = function () {
+            scope.setState({ image: reader.result });
+          };
+        } else {
+          this.setState({ image: e.target.value });
+        }
+      };
 
       onSubmit = async (v) => {
 
@@ -78,7 +99,7 @@ class NewCar extends Component{
           });  
           
         }
-        if(this.state.brandName === ''){
+        else if(this.state.brandName === ''){
           console.log('here');
   
           Swal.fire({  
@@ -89,7 +110,7 @@ class NewCar extends Component{
           });  
           
         }
-        if(this.state.manufactureYear === ''){
+        else if(this.state.manufactureYear === ''){
           console.log('here');
   
           Swal.fire({  
@@ -101,8 +122,8 @@ class NewCar extends Component{
           
         }
 
-        console.log(this.state.price)
-        if(this.state.price === ''){
+        //console.log(this.state.price)
+        else if(this.state.price === ''){
           console.log('here');
   
           Swal.fire({  
@@ -113,7 +134,7 @@ class NewCar extends Component{
           });  
           
         }
-        if(this.state.price < 0){
+        else if(this.state.price < 0){
           console.log('here');
   
           Swal.fire({  
@@ -124,6 +145,8 @@ class NewCar extends Component{
           });  
           
         }
+
+        
       
       
           v.preventDefault();
@@ -192,7 +215,21 @@ class NewCar extends Component{
                         
                     </Col>
                 </Form.Group>
-                 <Form.Group as={Row} className="mb-3">
+
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                    Image
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="file"
+                        id="validationImage"
+                    placeholder="Required Image"
+                    required
+                    onChange={this.onChangeImage}/>
+                        
+                    </Col>
+                </Form.Group>
+                 {/* <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
                     Image
                     </Form.Label>
@@ -242,7 +279,7 @@ class NewCar extends Component{
                 }
               />
                     </Col>
-                </Form.Group> 
+                </Form.Group>  */}
     
               <Button type="submit" >Add Car</Button>
             </Form>

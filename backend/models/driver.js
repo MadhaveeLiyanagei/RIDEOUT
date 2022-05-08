@@ -18,6 +18,7 @@ const driverSchema = new Schema({
 
     nic : {
         type : String,
+        
         required: true
     },
 

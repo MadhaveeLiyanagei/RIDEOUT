@@ -52,6 +52,18 @@ class UpdateCar extends Component{
         });
       };
 
+      onChangeImage = (e) => {
+        if (e.target.type === "file") {
+          const scope = this;
+          let reader = new FileReader();
+          reader.readAsDataURL(e.target.files[0]);
+          reader.onload = function () {
+            scope.setState({ image: reader.result });
+          };
+        } else {
+          this.setState({ image: e.target.value });
+        }
+      };
     componentDidMount() {
         this.getCar();
       }
@@ -81,63 +93,63 @@ class UpdateCar extends Component{
 
    onSubmit = async(v)=>{
 
-    // console.log(this.state.modelName)
+    console.log(this.state.modelName)
 
-    // if(this.state.modelName == ''){
-    //     Swal.fire({  
-    //       icon: 'error',  
-    //       title: 'Oops...',  
-    //       text: 'Model Name is Required !',  
+    if(this.state.modelName == ''){
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Model Name is Required !',  
          
-    //     });  
+        });  
        
-    //   }
-    //   if(this.state.brandName == ''){
+      }
+      else if (this.state.brandName == ''){
 
 
-    //     Swal.fire({  
-    //       icon: 'error',  
-    //       title: 'Oops...',  
-    //       text: 'Brand Name is Required !',  
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Brand Name is Required !',  
          
-    //     });  
+        });  
         
-    //   }
-    //   if(this.state.manufactureYear == ''){
+      }
+      else if(this.state.manufactureYear == ''){
 
 
-    //     Swal.fire({  
-    //       icon: 'error',  
-    //       title: 'Oops...',  
-    //       text: 'Manufacture Year is Required !',  
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Manufacture Year is Required !',  
          
-    //     });  
+        });  
         
-    //   }
+      }
 
-    //   console.log(this.state.price)
-    //   if(this.state.price == ''){
-    //     console.log('here');
+      //console.log(this.state.price)
+      else if(this.state.price == ''){
+        console.log('here');
 
-    //     Swal.fire({  
-    //       icon: 'error',  
-    //       title: 'Oops...',  
-    //       text: 'Price is Required !',  
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Price is Required !',  
          
-    //     });  
+        });  
         
-    //   }
-    //   if(this.state.price < 0){
-    //     console.log('here');
+      }
+      else if(this.state.price < 0){
+        console.log('here');
 
-    //     Swal.fire({  
-    //       icon: 'error',  
-    //       title: 'Oops...',  
-    //       text: 'Please Enter Valid Amount !',  
+        Swal.fire({  
+          icon: 'error',  
+          title: 'Oops...',  
+          text: 'Please Enter Valid Amount !',  
          
-    //     });  
+        });  
         
-    //   }
+      }
     v.preventDefault();
     const vehicle = {
         modelName: this.state.modelName,
@@ -157,15 +169,6 @@ class UpdateCar extends Component{
 
    }
 
-   getImageFileObject(imageFile) {
-    console.log(imageFile.dataUrl);
-
-    this.state.image = imageFile.dataUrl;
-  }
-
-  runAfterImageDelete(file) {
-    console.log({ file });
-  }
 
 
     render() {
@@ -186,7 +189,7 @@ class UpdateCar extends Component{
                     Brand Name
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Brand Name" value={this.state.brandName} onChange={this.onChanageVehicleBrandName} noValidate/>
+                        <Form.Control type="text" placeholder="Brand Name" value={this.state.brandName} onChange={this.onChanageVehicleBrandName} required noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -194,7 +197,7 @@ class UpdateCar extends Component{
                     Manufacture Year
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Manufacture Year" value={this.state.manufactureYear} onChange={this.onChanageVehicleManufactureYear} noValidate/>
+                        <Form.Control type="text" placeholder="Manufacture Year" value={this.state.manufactureYear} onChange={this.onChanageVehicleManufactureYear} required noValidate/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
@@ -202,69 +205,25 @@ class UpdateCar extends Component{
                     Price
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} noValidate/>
+                        <Form.Control type="text" placeholder="Price" value={this.state.price} onChange={this.onChanageVehiclePrice} required noValidate/>
                     </Col>
                 </Form.Group>
-                 <Form.Group as={Row} className="mb-3">
+                <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">
                     Image
                     </Form.Label>
                     <Col sm="10">
-                    <ImageUploader
-                onFileAdded={(img) => this.getImageFileObject(img)}
-                onFileRemoved={(img) => this.runAfterImageDelete(img)}
-                style={{
-                  height: 200,
-                  width: 200,
-                  background: "rgb(0 182 255)",
-                }}
-                deleteIcon={
-                  <img
-                    src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png"
-                    alt=""
-                  />
-                }
-                uploadIcon={
-                  <img
-                    src={this.state.image}
-                    alt=""
-                    style={{ height: 150, width: 150 }}
-                  />
-                }
-
-                // uploadIcon={
-                //   <svg
-                //     className="svg-circleplus"
-                //     viewBox="0 0 100 100"
-                //     style={{ height: "40px", stroke: "#000" }}
-                //     value={this.state.image}
-                //   >
-                //     <circle
-                //       cx="50"
-                //       cy="50"
-                //       r="45"
-                //       fill="none"
-                //       strokeWidth="7.5"
-                //     ></circle>
-                //     <line
-                //       x1="32.5"
-                //       y1="50"
-                //       x2="67.5"
-                //       y2="50"
-                //       strokeWidth="5"
-                //     ></line>
-                //     <line
-                //       x1="50"
-                //       y1="32.5"
-                //       x2="50"
-                //       y2="67.5"
-                //       strokeWidth="5"
-                //     ></line>
-                //   </svg>
-                // }
-              />
+                        <Form.Control type="file"
+                        id="validationImage"
+                    placeholder="Required Image"
+                    required
+                    onChange={this.onChangeImage}/>
+                        
                     </Col>
-                </Form.Group> 
+                    <div className="mb-3">
+                    <img src={this.state.image} width="200px" alt="..."></img>
+                  </div>
+                </Form.Group>
     
               <Button type="submit">Update Car</Button>
             </Form>
