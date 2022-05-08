@@ -85,4 +85,31 @@ export const signInValidations = (user) => {
         status: true,
         error: null
     }
+    
+}
+export const UpdateUserAccountValidations = (user) => {
+    if (!user.name) {
+        return setError("User Name is required.");
+    } else if (user.name.length < 3) {
+        return setError("User Name should have a minimum length of 3.");
+    } else if (user.name.length > 255) {
+        return setError("User Name should have a maximum length of 255.");
+    } else if (!user.mobile) {
+        return setError("User mobile is required.");
+    } else if (user.mobile.length !== 10) {
+        return setError("User mobile length shoud be 10.");
+    } else if (!validateMobile(user.mobile)) {
+        return setError("User mobile should only contain numbers.");
+    } else if (!user.nic) {
+        return setError("User NIC is required.");
+    } else if (user.nic.length !== 10) {
+        return setError("User NIC length shoud be 10.");
+    } else if (!validateNIC(user.nic)) {
+        return setError("Please enter valid NIC.");
+    } else if (!user.gender) {
+        return setError("Please select the gender.");
+    } else return {
+        status: true,
+        error: null
+    }
 }
